@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('print_jobs', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('shop_id')->index();
             $table->uuid('job_uuid')->unique();
             $table->unsignedBigInteger('user_id');
             $table->string('printer')->nullable();

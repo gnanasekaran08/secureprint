@@ -16,6 +16,7 @@ class PrintJobFactory extends Factory
     public function definition(): array
     {
         return [
+            'shop_id'         => $this->faker->numberBetween(1, 5),
             'job_uuid'        => $this->faker->uuid(),
             'user_id'         => $this->faker->numberBetween(1, 10),
             'printer'         => $this->faker->randomElement(['Printer A', 'Printer B', 'Printer C']),

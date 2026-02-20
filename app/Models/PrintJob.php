@@ -1,6 +1,7 @@
 <?php
 namespace App\Models;
 
+use App\Models\Attachment;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,6 +11,7 @@ class PrintJob extends Model
     use HasFactory;
 
     protected $fillable = [
+        'shop_id',
         'job_uuid',
         'user_id',
         'printer',
@@ -26,4 +28,9 @@ class PrintJob extends Model
         'otp',
         'otp_expires_at',
     ];
+
+    public function attachments()
+    {
+        return $this->hasMany(Attachment::class);
+    }
 }

@@ -10,10 +10,10 @@ class Attachment extends Model
     use HasFactory;
 
     protected $fillable = [
+        'print_job_id',
         'filename',
         'filepath',
         'filesize',
         'filetype',
-        'print_job_id',
     ];
 }

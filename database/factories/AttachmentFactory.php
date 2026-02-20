@@ -1,5 +1,4 @@
 <?php
-
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -17,7 +16,10 @@ class AttachmentFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'filename' => $this->faker->word() . '.pdf',
+            'filepath' => '/path/to/file/' . $this->faker->uuid() . '.pdf',
+            'filesize' => $this->faker->numberBetween(1000, 1000000), // filesize in bytes
+            'filetype' => 'application/pdf',
         ];
     }
 }
