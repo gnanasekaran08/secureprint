@@ -1,11 +1,62 @@
 @import 'tailwindcss';
-@plugin "daisyui";
+@plugin "daisyui" {
+    themes: light --default, dark --prefersdark, secureprint;
+}
 @import 'tw-animate-css';
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 
 @custom-variant dark (&:is(.dark *));
+
+/* SecurePrint Custom Theme - Modern & Vibrant */
+[data-theme="secureprint"] {
+    /* Primary - Indigo/Purple */
+    --p: 255 90 60;
+    --pf: 255 85 55;
+    --pc: 255 100 98;
+
+    /* Secondary - Coral/Orange */
+    --s: 14 89 55;
+    --sf: 14 84 50;
+    --sc: 14 100 98;
+
+    /* Accent - Teal/Cyan */
+    --a: 174 72 56;
+    --af: 174 67 51;
+    --ac: 174 100 98;
+
+    /* Neutral */
+    --n: 230 25 18;
+    --nf: 230 30 14;
+    --nc: 230 20 98;
+
+    /* Base Colors */
+    --b1: 220 30 99;
+    --b2: 220 28 96;
+    --b3: 220 25 92;
+    --bc: 230 25 18;
+
+    /* Status Colors */
+    --su: 158 64 52;
+    --suc: 158 100 98;
+    --wa: 43 96 56;
+    --wac: 43 100 20;
+    --er: 0 91 71;
+    --erc: 0 100 98;
+    --in: 198 93 60;
+    --inc: 198 100 98;
+
+    --rounded-box: 1rem;
+    --rounded-btn: 0.5rem;
+    --rounded-badge: 1.9rem;
+    --animation-btn: 0.25s;
+    --animation-input: 0.2s;
+    --btn-focus-scale: 0.95;
+    --border-btn: 1px;
+    --tab-border: 1px;
+    --tab-radius: 0.5rem;
+}
 
 @theme inline {
     --font-sans:
