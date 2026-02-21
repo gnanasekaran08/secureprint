@@ -645,20 +645,21 @@
                     class="flex flex-col gap-4 sm:flex-row sm:justify-center lg:justify-start"
                 >
                     <Link
-                        href={toUrl(print())}
+                        href="/scan"
                         class="group btn btn-lg gap-2 bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-600 text-white shadow-xl shadow-violet-500/30 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-violet-500/40"
                     >
-                        Start Printing Now
+                        <QrCode class="h-5 w-5" />
+                        Scan QR Code
+                    </Link>
+                    <Link
+                        href={toUrl(print())}
+                        class="btn btn-lg gap-2 border-2 border-violet-200 bg-white/80 text-violet-600 backdrop-blur-sm transition-all duration-300 hover:border-violet-300 hover:bg-violet-50 hover:shadow-lg"
+                    >
+                        Upload Files
                         <ArrowRight
                             class="h-5 w-5 transition-transform group-hover:translate-x-1"
                         />
                     </Link>
-                    <a
-                        href="#how-it-works"
-                        class="btn btn-lg gap-2 border-2 border-violet-200 bg-white/80 text-violet-600 backdrop-blur-sm transition-all duration-300 hover:border-violet-300 hover:bg-violet-50 hover:shadow-lg"
-                    >
-                        See How It Works
-                    </a>
                 </div>
 
                 <!-- Trust indicators -->

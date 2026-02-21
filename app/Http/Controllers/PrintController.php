@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Attachment;
@@ -12,6 +11,14 @@ use Inertia\Inertia;
 class PrintController extends Controller
 {
     /**
+     * Show the QR code scanner page.
+     */
+    public function scan()
+    {
+        return Inertia::render('ScanQR');
+    }
+
+    /**
      * Show the print upload page.
      */
     public function index(Request $request, ?string $shopUuid = null)
@@ -23,7 +30,7 @@ class PrintController extends Controller
         }
 
         return Inertia::render('PrintUpload', [
-            'shop' => $shop,
+            'shop'     => $shop,
             'shopUuid' => $shopUuid,
         ]);
     }
@@ -34,11 +41,11 @@ class PrintController extends Controller
     public function upload(Request $request)
     {
         $request->validate([
-            'files' => 'required|array|min:1',
-            'files.*' => 'required|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:10240',
-            'shop_uuid' => 'nullable|string|exists:shops,uuid',
-            'copies' => 'required|integer|min:1|max:100',
-            'is_color' => 'required|boolean',
+            'files'           => 'required|array|min:1',
+            'files.*'         => 'required|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:10240',
+            'shop_uuid'       => 'nullable|string|exists:shops,uuid',
+            'copies'          => 'required|integer|min:1|max:100',
+            'is_color'        => 'required|boolean',
             'is_double_sided' => 'required|boolean',
         ]);
 
@@ -49,15 +56,15 @@ class PrintController extends Controller
 
         // Create print job
         $printJob = PrintJob::create([
-            'shop_id' => $shop?->id,
-            'job_uuid' => Str::uuid(),
-            'user_id' => auth()->id(),
-            'status' => 'pending',
-            'total_copies' => $request->copies,
-            'is_color' => $request->is_color,
+            'shop_id'         => $shop?->id,
+            'job_uuid'        => Str::uuid(),
+            'user_id'         => auth()->id(),
+            'status'          => 'pending',
+            'total_copies'    => $request->copies,
+            'is_color'        => $request->is_color,
             'is_double_sided' => $request->is_double_sided,
-            'otp' => rand(1000, 9999),
-            'otp_expires_at' => now()->addHours(24),
+            'otp'             => rand(1000, 9999),
+            'otp_expires_at'  => now()->addHours(24),
         ]);
 
         $totalPages = 0;
@@ -65,24 +72,24 @@ class PrintController extends Controller
         // Store files
         foreach ($request->file('files') as $file) {
             $filename = $file->getClientOriginalName();
-            $filepath = $file->store('print-jobs/'.$printJob->job_uuid, 'local');
+            $filepath = $file->store('print-jobs/' . $printJob->job_uuid, 'local');
 
             // Estimate pages (simplified - in real app you'd parse PDF)
-            $pages = $this->estimatePages($file);
+            $pages       = $this->estimatePages($file);
             $totalPages += $pages;
 
             Attachment::create([
                 'print_job_id' => $printJob->id,
-                'filename' => $filename,
-                'filepath' => $filepath,
-                'filesize' => $file->getSize(),
-                'filetype' => $file->getClientMimeType(),
+                'filename'     => $filename,
+                'filepath'     => $filepath,
+                'filesize'     => $file->getSize(),
+                'filetype'     => $file->getClientMimeType(),
             ]);
         }
 
         // Calculate cost
         $pricePerPage = $request->is_color ? 0.15 : 0.05;
-        $totalCost = $totalPages * $request->copies * $pricePerPage;
+        $totalCost    = $totalPages * $request->copies * $pricePerPage;
 
         if ($request->is_double_sided) {
             $totalCost *= 0.9; // 10% discount for double-sided
@@ -90,11 +97,11 @@ class PrintController extends Controller
 
         $printJob->update([
             'total_pages' => $totalPages,
-            'total_cost' => round($totalCost, 2),
+            'total_cost'  => round($totalCost, 2),
         ]);
 
         return response()->json([
-            'success' => true,
+            'success'   => true,
             'print_job' => $printJob->fresh()->load('attachments'),
         ]);
     }
@@ -105,7 +112,7 @@ class PrintController extends Controller
     public function processPayment(Request $request)
     {
         $request->validate([
-            'print_job_id' => 'required|exists:print_jobs,id',
+            'print_job_id'   => 'required|exists:print_jobs,id',
             'payment_method' => 'required|in:gpay,card,cash',
         ]);
 
@@ -114,14 +121,14 @@ class PrintController extends Controller
         // In a real app, you'd integrate with actual payment gateway
         // For now, we'll mock the payment
         $printJob->update([
-            'status' => 'paid',
+            'status'       => 'paid',
             'submitted_at' => now(),
         ]);
 
         return response()->json([
-            'success' => true,
-            'message' => 'Payment successful!',
-            'otp' => $printJob->otp,
+            'success'   => true,
+            'message'   => 'Payment successful!',
+            'otp'       => $printJob->otp,
             'print_job' => $printJob,
         ]);
     }
