@@ -16,6 +16,7 @@
         CreditCard,
         EyeOff,
         UserX,
+        QrCode,
     } from 'lucide-svelte';
 
     const auth = $derived($page.props.auth);
@@ -62,20 +63,27 @@
     const steps = [
         {
             step: 1,
+            title: 'Scan QR',
+            description: 'Scan the shop QR code to connect instantly',
+            icon: QrCode,
+            color: 'from-cyan-500 to-blue-600',
+        },
+        {
+            step: 2,
             title: 'Upload',
             description: 'Select your files and customize print settings',
             icon: FileText,
             color: 'from-violet-500 to-indigo-600',
         },
         {
-            step: 2,
+            step: 3,
             title: 'Pay',
             description: 'Secure checkout with multiple payment options',
             icon: CreditCard,
             color: 'from-orange-500 to-pink-500',
         },
         {
-            step: 3,
+            step: 4,
             title: 'Collect',
             description: 'Pick up your prints from your chosen shop',
             icon: Store,
@@ -786,37 +794,37 @@
                     >
                 </h2>
                 <p class="mx-auto max-w-2xl text-lg text-slate-600">
-                    Get your documents printed in three simple steps.
+                    Get your documents printed in four simple steps.
                 </p>
             </div>
-            <div class="relative grid gap-8 md:grid-cols-3">
+            <div class="relative grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4">
                 <!-- Connection Line -->
                 <div
-                    class="absolute left-0 right-0 top-24 hidden h-1 bg-gradient-to-r from-violet-500 via-orange-500 to-emerald-500 md:block"
-                    style="margin: 0 15%;"
+                    class="absolute left-0 right-0 top-24 hidden h-1 bg-gradient-to-r from-cyan-500 via-violet-500 via-orange-500 to-emerald-500 md:block"
+                    style="margin: 0 10%;"
                 ></div>
 
                 {#each steps as step}
-                    <div class="group relative">
+                    <div class="group relative h-full">
                         <div
-                            class="relative rounded-3xl border border-slate-100 bg-white p-8 shadow-xl shadow-slate-200/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
+                            class="relative flex h-full flex-col rounded-3xl border border-slate-100 bg-white p-6 shadow-xl shadow-slate-200/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
                         >
                             <div
-                                class="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br {step.color} shadow-xl transition-transform duration-300 group-hover:scale-110"
+                                class="mx-auto mb-5 flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br {step.color} shadow-xl transition-transform duration-300 group-hover:scale-110"
                             >
-                                <step.icon class="h-10 w-10 text-white" />
+                                <step.icon class="h-8 w-8 text-white" />
                             </div>
                             <div
-                                class="absolute -top-3 left-1/2 flex h-8 w-8 -translate-x-1/2 items-center justify-center rounded-full bg-gradient-to-br {step.color} text-sm font-bold text-white shadow-lg"
+                                class="absolute -top-3 left-1/2 flex h-7 w-7 -translate-x-1/2 items-center justify-center rounded-full bg-gradient-to-br {step.color} text-xs font-bold text-white shadow-lg"
                             >
                                 {step.step}
                             </div>
                             <h3
-                                class="mb-3 text-center text-2xl font-bold text-slate-800"
+                                class="mb-2 text-center text-xl font-bold text-slate-800"
                             >
                                 {step.title}
                             </h3>
-                            <p class="text-center text-slate-600">
+                            <p class="flex-grow text-center text-sm text-slate-600">
                                 {step.description}
                             </p>
                         </div>
