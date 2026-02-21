@@ -46,9 +46,9 @@
     let showColorSheet = $state(false);
     let showDoubleSidedSheet = $state(false);
 
-    // Pricing
-    const pricePerPageBW = 0.05;
-    const pricePerPageColor = 0.15;
+    // Pricing (in Rupees)
+    const pricePerPageBW = 5;
+    const pricePerPageColor = 15;
     const doubleSidedDiscount = 0.1;
 
     // Computed
@@ -328,7 +328,7 @@
                             <div class="flex-1 text-left">
                                 <p class="font-semibold text-slate-800">Color Printing</p>
                                 <p class="text-sm text-slate-500">
-                                    {isColor ? 'Color • $0.15/page' : 'Black & White • $0.05/page'}
+                                    {isColor ? 'Color • ₹15/page' : 'Black & White • ₹5/page'}
                                 </p>
                             </div>
                             <ChevronRight class="h-5 w-5 text-slate-400" />
@@ -363,7 +363,7 @@
                 <div class="rounded-2xl bg-gradient-to-br from-slate-100 to-slate-50 p-4">
                     <div class="flex items-center justify-between">
                         <span class="text-slate-600">Estimated Total</span>
-                        <span class="text-2xl font-bold text-slate-800">${total.toFixed(2)}</span>
+                        <span class="text-2xl font-bold text-slate-800">₹{total.toFixed(0)}</span>
                     </div>
                     <p class="mt-1 text-sm text-slate-500">
                         {estimatedPages} pages × {copies} copies
@@ -430,17 +430,17 @@
                         {#if printJob.is_double_sided}
                             <div class="flex justify-between text-slate-600">
                                 <span>Subtotal</span>
-                                <span>${(printJob.total_cost / 0.9).toFixed(2)}</span>
+                                <span>₹{(printJob.total_cost / 0.9).toFixed(0)}</span>
                             </div>
                             <div class="flex justify-between text-emerald-600">
                                 <span>Double-sided Discount (10%)</span>
-                                <span>-${((printJob.total_cost / 0.9) * 0.1).toFixed(2)}</span>
+                                <span>-₹{((printJob.total_cost / 0.9) * 0.1).toFixed(0)}</span>
                             </div>
                         {/if}
 
                         <div class="flex justify-between text-lg font-bold">
                             <span>Total</span>
-                            <span class="text-violet-600">${printJob.total_cost}</span>
+                            <span class="text-violet-600">₹{printJob.total_cost}</span>
                         </div>
                     </div>
                 </div>
@@ -610,7 +610,7 @@
                         </div>
                         <div class="flex-1 text-left">
                             <p class="text-lg font-semibold text-slate-800">Black & White</p>
-                            <p class="text-sm text-slate-500">$0.05 per page</p>
+                            <p class="text-sm text-slate-500">₹5 per page</p>
                         </div>
                         {#if !isColor}
                             <div class="flex h-8 w-8 items-center justify-center rounded-full bg-violet-500">
@@ -631,7 +631,7 @@
                         </div>
                         <div class="flex-1 text-left">
                             <p class="text-lg font-semibold text-slate-800">Full Color</p>
-                            <p class="text-sm text-slate-500">$0.15 per page</p>
+                            <p class="text-sm text-slate-500">₹15 per page</p>
                         </div>
                         {#if isColor}
                             <div class="flex h-8 w-8 items-center justify-center rounded-full bg-violet-500">

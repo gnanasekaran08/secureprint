@@ -87,8 +87,8 @@ class PrintController extends Controller
             ]);
         }
 
-        // Calculate cost
-        $pricePerPage = $request->is_color ? 0.15 : 0.05;
+        // Calculate cost (in Rupees)
+        $pricePerPage = $request->is_color ? 15 : 5;
         $totalCost    = $totalPages * $request->copies * $pricePerPage;
 
         if ($request->is_double_sided) {
@@ -97,7 +97,7 @@ class PrintController extends Controller
 
         $printJob->update([
             'total_pages' => $totalPages,
-            'total_cost'  => round($totalCost, 2),
+            'total_cost'  => round($totalCost, 0),
         ]);
 
         return response()->json([
