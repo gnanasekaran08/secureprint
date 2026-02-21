@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 use App\Models\Attachment;
 use App\Models\PrintJob;
 use App\Models\Shop;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
 
@@ -40,6 +42,10 @@ class PrintController extends Controller
      */
     public function upload(Request $request)
     {
+        Log::info('Received print upload request', [
+            'files' => $request->file('files') ? count($request->file('files')) : 0,
+        ]);
+
         $request->validate([
             'files'           => 'required|array|min:1',
             'files.*'         => 'required|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:10240',
@@ -49,16 +55,27 @@ class PrintController extends Controller
             'is_double_sided' => 'required|boolean',
         ]);
 
+        Log::info('Creating print job', [
+            'shop_uuid'       => $request->shop_uuid,
+            'copies'          => $request->copies,
+            'is_color'        => $request->is_color,
+            'is_double_sided' => $request->is_double_sided,
+        ]);
+
         $shop = null;
         if ($request->shop_uuid) {
             $shop = Shop::where('uuid', $request->shop_uuid)->first();
+        }
+
+        if (! $shop) {
+            $shop = Shop::where('id', 1)->first();
         }
 
         // Create print job
         $printJob = PrintJob::create([
             'shop_id'         => $shop?->id,
             'job_uuid'        => Str::uuid(),
-            'user_id'         => auth()->id(),
+            'user_id'         => 1,
             'status'          => 'pending',
             'total_copies'    => $request->copies,
             'is_color'        => $request->is_color,
@@ -116,21 +133,30 @@ class PrintController extends Controller
             'payment_method' => 'required|in:gpay,card,cash',
         ]);
 
-        $printJob = PrintJob::findOrFail($request->print_job_id);
+        try {
+            $printJob = PrintJob::findOrFail($request->print_job_id);
 
-        // In a real app, you'd integrate with actual payment gateway
-        // For now, we'll mock the payment
-        $printJob->update([
-            'status'       => 'paid',
-            'submitted_at' => now(),
-        ]);
+            // In a real app, you'd integrate with actual payment gateway
+            // For now, we'll mock the payment
+            $printJob->update([
+                'status'       => 'paid',
+                'submitted_at' => now(),
+            ]);
 
-        return response()->json([
-            'success'   => true,
-            'message'   => 'Payment successful!',
-            'otp'       => $printJob->otp,
-            'print_job' => $printJob,
-        ]);
+            return response()->json([
+                'status'    => 'success',
+                'message'   => 'Payment successful!',
+                'otp'       => $printJob->otp,
+                'print_job' => $printJob,
+            ], 200);
+
+        } catch (Exception $e) {
+            return response()->json([
+                'status'  => 'error',
+                'message' => 'Payment failed. Please try again. ERROR: ' . $e->getMessage(),
+            ], 500);
+        }
+
     }
 
     /**
