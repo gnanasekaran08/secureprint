@@ -13,6 +13,7 @@ Route::get('dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 // Print Routes
+Route::get('scan', [PrintController::class, 'scan'])->name('scan');
 Route::get('print/{shopUuid?}', [PrintController::class, 'index'])->name('print');
 Route::post('print/upload', [PrintController::class, 'upload'])->name('print.upload');
 Route::post('print/pay', [PrintController::class, 'processPayment'])->name('print.pay');

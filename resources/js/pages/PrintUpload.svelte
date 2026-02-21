@@ -17,6 +17,10 @@
         Smartphone,
         ArrowLeft,
         Loader2,
+        X,
+        Check,
+        ChevronRight,
+        FileStack,
     } from 'lucide-svelte';
 
     let {
@@ -38,9 +42,13 @@
     let printJob = $state<any>(null);
     let paymentOtp = $state<string | null>(null);
 
-    // Pricing
-    const pricePerPageBW = 0.05;
-    const pricePerPageColor = 0.15;
+    // Bottom sheet states
+    let showColorSheet = $state(false);
+    let showDoubleSidedSheet = $state(false);
+
+    // Pricing (in Rupees)
+    const pricePerPageBW = 5;
+    const pricePerPageColor = 15;
     const doubleSidedDiscount = 0.1;
 
     // Computed
@@ -305,7 +313,10 @@
                     </div>
 
                     <!-- Color -->
-                    <div class="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+                    <button
+                        onclick={() => (showColorSheet = true)}
+                        class="w-full rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition-all hover:border-violet-300 hover:shadow-md active:scale-[0.98]"
+                    >
                         <div class="flex items-center gap-3">
                             <div
                                 class="flex h-10 w-10 items-center justify-center rounded-xl {isColor
@@ -314,18 +325,21 @@
                             >
                                 <Palette class="h-5 w-5 {isColor ? 'text-white' : 'text-slate-600'}" />
                             </div>
-                            <div class="flex-1">
+                            <div class="flex-1 text-left">
                                 <p class="font-semibold text-slate-800">Color Printing</p>
                                 <p class="text-sm text-slate-500">
-                                    {isColor ? '$0.15/page' : '$0.05/page (B&W)'}
+                                    {isColor ? 'Color • ₹15/page' : 'Black & White • ₹5/page'}
                                 </p>
                             </div>
-                            <input type="checkbox" bind:checked={isColor} class="toggle toggle-primary toggle-lg" />
+                            <ChevronRight class="h-5 w-5 text-slate-400" />
                         </div>
-                    </div>
+                    </button>
 
                     <!-- Double Sided -->
-                    <div class="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+                    <button
+                        onclick={() => (showDoubleSidedSheet = true)}
+                        class="w-full rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition-all hover:border-violet-300 hover:shadow-md active:scale-[0.98]"
+                    >
                         <div class="flex items-center gap-3">
                             <div
                                 class="flex h-10 w-10 items-center justify-center rounded-xl {isDoubleSided
@@ -334,22 +348,22 @@
                             >
                                 <BookOpen class="h-5 w-5 {isDoubleSided ? 'text-white' : 'text-slate-600'}" />
                             </div>
-                            <div class="flex-1">
+                            <div class="flex-1 text-left">
                                 <p class="font-semibold text-slate-800">Double Sided</p>
                                 <p class="text-sm text-slate-500">
-                                    {isDoubleSided ? '10% discount applied' : 'Print on both sides'}
+                                    {isDoubleSided ? 'Double sided • 10% off' : 'Single sided'}
                                 </p>
                             </div>
-                            <input type="checkbox" bind:checked={isDoubleSided} class="toggle toggle-primary toggle-lg" />
+                            <ChevronRight class="h-5 w-5 text-slate-400" />
                         </div>
-                    </div>
+                    </button>
                 </div>
 
                 <!-- Summary Preview -->
                 <div class="rounded-2xl bg-gradient-to-br from-slate-100 to-slate-50 p-4">
                     <div class="flex items-center justify-between">
                         <span class="text-slate-600">Estimated Total</span>
-                        <span class="text-2xl font-bold text-slate-800">${total.toFixed(2)}</span>
+                        <span class="text-2xl font-bold text-slate-800">₹{total.toFixed(0)}</span>
                     </div>
                     <p class="mt-1 text-sm text-slate-500">
                         {estimatedPages} pages × {copies} copies
@@ -416,17 +430,17 @@
                         {#if printJob.is_double_sided}
                             <div class="flex justify-between text-slate-600">
                                 <span>Subtotal</span>
-                                <span>${(printJob.total_cost / 0.9).toFixed(2)}</span>
+                                <span>₹{(printJob.total_cost / 0.9).toFixed(0)}</span>
                             </div>
                             <div class="flex justify-between text-emerald-600">
                                 <span>Double-sided Discount (10%)</span>
-                                <span>-${((printJob.total_cost / 0.9) * 0.1).toFixed(2)}</span>
+                                <span>-₹{((printJob.total_cost / 0.9) * 0.1).toFixed(0)}</span>
                             </div>
                         {/if}
 
                         <div class="flex justify-between text-lg font-bold">
                             <span>Total</span>
-                            <span class="text-violet-600">${printJob.total_cost}</span>
+                            <span class="text-violet-600">₹{printJob.total_cost}</span>
                         </div>
                     </div>
                 </div>
@@ -555,4 +569,176 @@
             </div>
         {/if}
     </main>
+
+    <!-- Color Selection Bottom Sheet -->
+    {#if showColorSheet}
+        <div class="fixed inset-0 z-50">
+            <!-- Backdrop -->
+            <button
+                class="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity"
+                onclick={() => (showColorSheet = false)}
+                aria-label="Close"
+            ></button>
+
+            <!-- Sheet -->
+            <div class="absolute inset-x-0 bottom-0 animate-slide-up rounded-t-3xl bg-white p-6 shadow-2xl">
+                <!-- Handle -->
+                <div class="mx-auto mb-4 h-1 w-12 rounded-full bg-slate-300"></div>
+
+                <!-- Header -->
+                <div class="mb-6 flex items-center justify-between">
+                    <h3 class="text-xl font-bold text-slate-800">Print Color</h3>
+                    <button
+                        onclick={() => (showColorSheet = false)}
+                        class="btn btn-circle btn-ghost btn-sm"
+                    >
+                        <X class="h-5 w-5" />
+                    </button>
+                </div>
+
+                <!-- Options -->
+                <div class="space-y-3">
+                    <!-- Black & White Option -->
+                    <button
+                        onclick={() => { isColor = false; showColorSheet = false; }}
+                        class="flex w-full items-center gap-4 rounded-2xl border-2 p-4 transition-all {!isColor
+                            ? 'border-violet-500 bg-violet-50'
+                            : 'border-slate-200 bg-white hover:border-slate-300'}"
+                    >
+                        <div class="flex h-14 w-14 items-center justify-center rounded-xl bg-slate-200">
+                            <FileStack class="h-7 w-7 text-slate-600" />
+                        </div>
+                        <div class="flex-1 text-left">
+                            <p class="text-lg font-semibold text-slate-800">Black & White</p>
+                            <p class="text-sm text-slate-500">₹5 per page</p>
+                        </div>
+                        {#if !isColor}
+                            <div class="flex h-8 w-8 items-center justify-center rounded-full bg-violet-500">
+                                <Check class="h-5 w-5 text-white" />
+                            </div>
+                        {/if}
+                    </button>
+
+                    <!-- Color Option -->
+                    <button
+                        onclick={() => { isColor = true; showColorSheet = false; }}
+                        class="flex w-full items-center gap-4 rounded-2xl border-2 p-4 transition-all {isColor
+                            ? 'border-violet-500 bg-violet-50'
+                            : 'border-slate-200 bg-white hover:border-slate-300'}"
+                    >
+                        <div class="flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-orange-400 to-pink-500">
+                            <Palette class="h-7 w-7 text-white" />
+                        </div>
+                        <div class="flex-1 text-left">
+                            <p class="text-lg font-semibold text-slate-800">Full Color</p>
+                            <p class="text-sm text-slate-500">₹15 per page</p>
+                        </div>
+                        {#if isColor}
+                            <div class="flex h-8 w-8 items-center justify-center rounded-full bg-violet-500">
+                                <Check class="h-5 w-5 text-white" />
+                            </div>
+                        {/if}
+                    </button>
+                </div>
+            </div>
+        </div>
+    {/if}
+
+    <!-- Double Sided Bottom Sheet -->
+    {#if showDoubleSidedSheet}
+        <div class="fixed inset-0 z-50">
+            <!-- Backdrop -->
+            <button
+                class="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity"
+                onclick={() => (showDoubleSidedSheet = false)}
+                aria-label="Close"
+            ></button>
+
+            <!-- Sheet -->
+            <div class="absolute inset-x-0 bottom-0 animate-slide-up rounded-t-3xl bg-white p-6 shadow-2xl">
+                <!-- Handle -->
+                <div class="mx-auto mb-4 h-1 w-12 rounded-full bg-slate-300"></div>
+
+                <!-- Header -->
+                <div class="mb-6 flex items-center justify-between">
+                    <h3 class="text-xl font-bold text-slate-800">Page Sides</h3>
+                    <button
+                        onclick={() => (showDoubleSidedSheet = false)}
+                        class="btn btn-circle btn-ghost btn-sm"
+                    >
+                        <X class="h-5 w-5" />
+                    </button>
+                </div>
+
+                <!-- Options -->
+                <div class="space-y-3">
+                    <!-- Single Sided Option -->
+                    <button
+                        onclick={() => { isDoubleSided = false; showDoubleSidedSheet = false; }}
+                        class="flex w-full items-center gap-4 rounded-2xl border-2 p-4 transition-all {!isDoubleSided
+                            ? 'border-violet-500 bg-violet-50'
+                            : 'border-slate-200 bg-white hover:border-slate-300'}"
+                    >
+                        <div class="flex h-14 w-14 items-center justify-center rounded-xl bg-slate-200">
+                            <FileText class="h-7 w-7 text-slate-600" />
+                        </div>
+                        <div class="flex-1 text-left">
+                            <p class="text-lg font-semibold text-slate-800">Single Sided</p>
+                            <p class="text-sm text-slate-500">Print on one side only</p>
+                        </div>
+                        {#if !isDoubleSided}
+                            <div class="flex h-8 w-8 items-center justify-center rounded-full bg-violet-500">
+                                <Check class="h-5 w-5 text-white" />
+                            </div>
+                        {/if}
+                    </button>
+
+                    <!-- Double Sided Option -->
+                    <button
+                        onclick={() => { isDoubleSided = true; showDoubleSidedSheet = false; }}
+                        class="flex w-full items-center gap-4 rounded-2xl border-2 p-4 transition-all {isDoubleSided
+                            ? 'border-violet-500 bg-violet-50'
+                            : 'border-slate-200 bg-white hover:border-slate-300'}"
+                    >
+                        <div class="flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-teal-500">
+                            <BookOpen class="h-7 w-7 text-white" />
+                        </div>
+                        <div class="flex-1 text-left">
+                            <p class="text-lg font-semibold text-slate-800">Double Sided</p>
+                            <p class="text-sm text-slate-500">Print on both sides • 10% discount</p>
+                        </div>
+                        {#if isDoubleSided}
+                            <div class="flex h-8 w-8 items-center justify-center rounded-full bg-violet-500">
+                                <Check class="h-5 w-5 text-white" />
+                            </div>
+                        {/if}
+                    </button>
+                </div>
+
+                <!-- Savings hint -->
+                <div class="mt-4 rounded-xl bg-emerald-50 p-3 text-center">
+                    <p class="text-sm text-emerald-700">
+                        <span class="font-semibold">Tip:</span> Double sided printing saves paper and gives you 10% off!
+                    </p>
+                </div>
+            </div>
+        </div>
+    {/if}
 </div>
+
+<style>
+    @keyframes slide-up {
+        from {
+            transform: translateY(100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    .animate-slide-up {
+        animation: slide-up 0.3s ease-out;
+    }
+</style>
