@@ -666,7 +666,7 @@
                         Your Collection Code
                     </p>
                     <div class="flex justify-center gap-3">
-                        {#each paymentOtp?.toString() || '0000' as digit}
+                        {#each paymentOtp?.toString() || '----' as digit}
                             <span
                                 class="flex h-14 w-12 items-center justify-center rounded-xl bg-white/20 text-3xl font-bold"
                             >
