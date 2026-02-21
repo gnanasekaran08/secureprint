@@ -248,34 +248,26 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="relative min-h-screen overflow-hidden pt-24">
-        <!-- Hero Background Pattern -->
+    <section class="relative min-h-screen overflow-hidden pt-24 bg-[#faf9fb]">
+        <!-- Hero Background Grid Lines -->
         <div class="absolute inset-0 -z-10">
-            <!-- Radial gradient spotlight -->
+            <!-- Base Grid Lines - High visibility -->
             <div
-                class="absolute left-1/2 top-1/2 h-[800px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-radial from-violet-500/10 via-transparent to-transparent"
+                class="absolute inset-0"
+                style="background-image: linear-gradient(to right, rgba(180, 180, 195, 0.8) 1px, transparent 1px), linear-gradient(to bottom, rgba(180, 180, 195, 0.8) 1px, transparent 1px); background-size: 40px 40px;"
             ></div>
 
-            <!-- Floating geometric shapes -->
+            <!-- Gradient overlay for colorful effect -->
             <div
-                class="absolute left-[10%] top-[20%] h-20 w-20 rotate-12 rounded-2xl border border-violet-200/30 bg-gradient-to-br from-violet-100/50 to-transparent"
-                style="animation: float 6s ease-in-out infinite;"
+                class="absolute inset-0 bg-gradient-to-br from-pink-200/60 via-transparent to-orange-200/50"
             ></div>
             <div
-                class="absolute right-[15%] top-[15%] h-16 w-16 -rotate-12 rounded-full border border-orange-200/30 bg-gradient-to-br from-orange-100/50 to-transparent"
-                style="animation: float 8s ease-in-out infinite; animation-delay: 1s;"
+                class="absolute inset-0 bg-gradient-to-tl from-violet-200/50 via-transparent to-cyan-200/40"
             ></div>
+
+            <!-- Center fade to white -->
             <div
-                class="absolute bottom-[30%] left-[5%] h-12 w-12 rotate-45 rounded-lg border border-emerald-200/30 bg-gradient-to-br from-emerald-100/50 to-transparent"
-                style="animation: float 7s ease-in-out infinite; animation-delay: 2s;"
-            ></div>
-            <div
-                class="absolute bottom-[20%] right-[8%] h-24 w-24 -rotate-6 rounded-3xl border border-pink-200/30 bg-gradient-to-br from-pink-100/50 to-transparent"
-                style="animation: float 9s ease-in-out infinite; animation-delay: 0.5s;"
-            ></div>
-            <div
-                class="absolute left-[20%] top-[60%] h-10 w-10 rotate-6 rounded-full border border-cyan-200/30 bg-gradient-to-br from-cyan-100/50 to-transparent"
-                style="animation: float 5s ease-in-out infinite; animation-delay: 3s;"
+                class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.85)_0%,transparent_60%)]"
             ></div>
         </div>
 
@@ -294,47 +286,22 @@
         <div
             class="mx-auto flex max-w-7xl flex-col items-center gap-16 px-6 py-20 lg:flex-row-reverse lg:gap-20 lg:px-12"
         >
-            <!-- Printer Illustration - Enhanced -->
+            <!-- Printer Illustration -->
             <div class="relative flex-1">
-                <div class="relative mx-auto w-full max-w-lg">
-                    <!-- Multi-layer Glow Effect -->
-                    <div
-                        class="absolute -inset-8 animate-pulse rounded-3xl bg-gradient-to-r from-violet-500/30 via-purple-500/20 to-pink-500/30 opacity-60 blur-3xl"
-                    ></div>
-                    <div
-                        class="absolute -inset-4 rounded-3xl bg-gradient-to-r from-indigo-500/20 to-violet-500/20 blur-xl"
-                    ></div>
-
-                    <!-- Main Printer Card -->
-                    <div
-                        class="relative overflow-hidden rounded-3xl border border-violet-200/50 bg-white/90 p-8 shadow-2xl shadow-violet-500/20 backdrop-blur-md"
-                    >
-                        <!-- Decorative Pattern Inside Card -->
-                        <div
-                            class="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] opacity-30"
-                        ></div>
-
-                        <!-- Decorative Corner -->
-                        <div
-                            class="absolute -right-12 -top-12 h-40 w-40 rounded-full bg-gradient-to-br from-violet-500/20 to-indigo-500/20 blur-2xl"
-                        ></div>
-                        <div
-                            class="absolute -bottom-8 -left-8 h-32 w-32 rounded-full bg-gradient-to-br from-pink-500/15 to-orange-500/15 blur-2xl"
-                        ></div>
-
-                        <!-- Printer Image -->
-                        <div class="relative mb-6 flex justify-center">
-                            <div class="relative">
-                                <div
-                                    class="flex h-52 w-72 items-center justify-center rounded-2xl bg-gradient-to-br from-slate-100 via-violet-50 to-indigo-100"
+                <div class="relative mx-auto w-full max-w-md">
+                    <!-- Printer Image Container -->
+                    <div class="relative mb-8 flex justify-center">
+                        <div class="relative">
+                            <div
+                                class="flex h-56 w-80 items-center justify-center rounded-3xl bg-gradient-to-br from-slate-50 via-violet-50/50 to-indigo-50"
+                            >
+                                <!-- Stylized Printer Illustration -->
+                                <svg
+                                    viewBox="0 0 200 160"
+                                    class="h-48 w-60"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
                                 >
-                                    <!-- Stylized Printer Illustration - Enhanced -->
-                                    <svg
-                                        viewBox="0 0 200 160"
-                                        class="h-44 w-56"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
                                         <!-- Shadow -->
                                         <ellipse
                                             cx="100"
@@ -517,7 +484,7 @@
                                 </div>
                                 <!-- Status Badge -->
                                 <div
-                                    class="absolute -right-3 -top-3 flex items-center gap-1.5 rounded-full bg-gradient-to-r from-emerald-500 to-teal-500 px-4 py-1.5 text-xs font-semibold text-white shadow-lg shadow-emerald-500/30"
+                                    class="absolute -right-2 -top-2 flex items-center gap-1.5 rounded-full bg-gradient-to-r from-emerald-500 to-teal-500 px-3 py-1.5 text-xs font-semibold text-white"
                                 >
                                     <span
                                         class="h-2 w-2 animate-pulse rounded-full bg-white"
@@ -527,38 +494,25 @@
                             </div>
                         </div>
 
-                        <!-- Quick Stats - Enhanced -->
-                        <div class="grid grid-cols-3 gap-3">
-                            <div
-                                class="rounded-xl bg-gradient-to-br from-violet-50 to-indigo-50 p-4 text-center transition-transform hover:scale-105"
-                            >
-                                <p class="text-2xl font-bold text-violet-600">
-                                    150+
-                                </p>
-                                <p class="text-xs font-medium text-slate-500">
-                                    Locations
-                                </p>
+                    <!-- Quick Features -->
+                    <div class="flex justify-center gap-6">
+                        <div class="flex items-center gap-2">
+                            <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-violet-100">
+                                <Shield class="h-5 w-5 text-violet-600" />
                             </div>
-                            <div
-                                class="rounded-xl bg-gradient-to-br from-orange-50 to-pink-50 p-4 text-center transition-transform hover:scale-105"
-                            >
-                                <p class="text-2xl font-bold text-orange-500">
-                                    24/7
-                                </p>
-                                <p class="text-xs font-medium text-slate-500">
-                                    Available
-                                </p>
+                            <span class="text-sm font-medium text-slate-700">Secure</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-100">
+                                <Zap class="h-5 w-5 text-orange-500" />
                             </div>
-                            <div
-                                class="rounded-xl bg-gradient-to-br from-emerald-50 to-teal-50 p-4 text-center transition-transform hover:scale-105"
-                            >
-                                <p class="text-2xl font-bold text-emerald-500">
-                                    $0.05
-                                </p>
-                                <p class="text-xs font-medium text-slate-500">
-                                    Per Page
-                                </p>
+                            <span class="text-sm font-medium text-slate-700">Instant</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-100">
+                                <EyeOff class="h-5 w-5 text-emerald-500" />
                             </div>
+                            <span class="text-sm font-medium text-slate-700">Private</span>
                         </div>
                     </div>
                 </div>
