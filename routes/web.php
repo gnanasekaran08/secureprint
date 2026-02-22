@@ -15,6 +15,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/shops', [ShopListController::class, 'index'])->name('shops');
     Route::get('/print-jobs', [PrintJobListController::class, 'index'])->name('print-jobs');
+    Route::post('/print-jobs/{uuid}/delete-files', [PrintJobListController::class, 'removeFiles'])->name('print-jobs.remove-files');
 });
 
 // Print Routes

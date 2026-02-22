@@ -4,9 +4,9 @@
     import type { BreadcrumbItem } from '@/types';
     import { dashboard } from '@/routes';
     import { Trash2 } from '@lucide/svelte';
+    import { page, router } from '@inertiajs/svelte';
 
     let { print_jobs, pagination } = $props();
-
     const breadcrumbs: BreadcrumbItem[] = [
         {
             title: 'Dashboard',
@@ -17,6 +17,37 @@
             href: '/print-jobs',
         },
     ];
+
+    const destroyPrintJob = async (uuid: string) => {
+        if (!confirm('Are you sure you want to remove this print job?')) {
+            return;
+        }
+
+        try {
+
+            const response = await fetch(`/print-jobs/${uuid}/delete-files`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': $page.props.csrf_token,
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                },
+            });
+
+            if (response.ok) {
+                alert('Print job files removed successfully.');
+                // Refresh the page to update the list
+                router.reload();
+            } else {
+                alert('Failed to remove print job files. Please try again.');
+            }
+        } catch (error) {
+            console.error('Error removing print job files:', error);
+            alert(
+                'An error occurred while trying to remove the print job files.',
+            );
+        }
+    };
 </script>
 
 <AppHead title="Print Jobs List" />
@@ -65,6 +96,8 @@
                                     href={'#'}
                                     class="text-red-700 tooltip tooltip-left"
                                     data-tip="Remove Print Job Files"
+                                    onclick={() =>
+                                        destroyPrintJob(print_job.uuid)}
                                 >
                                     <Trash2 size={18} />
                                 </a>
