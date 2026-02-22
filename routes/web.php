@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PrintController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -8,9 +9,9 @@ Route::get('/', function () {
     return Inertia::render('Landing');
 })->name('home');
 
-Route::get('dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+});
 
 // Print Routes
 Route::get('scan', [PrintController::class, 'scan'])->name('scan');
