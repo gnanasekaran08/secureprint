@@ -302,217 +302,229 @@
                                     fill="none"
                                     xmlns="http://www.w3.org/2000/svg"
                                 >
-                                        <!-- Shadow -->
-                                        <ellipse
-                                            cx="100"
-                                            cy="155"
-                                            rx="70"
-                                            ry="5"
-                                            fill="#e2e8f0"
+                                    <!-- Shadow -->
+                                    <ellipse
+                                        cx="100"
+                                        cy="155"
+                                        rx="70"
+                                        ry="5"
+                                        fill="#e2e8f0"
+                                    />
+                                    <!-- Printer Body -->
+                                    <rect
+                                        x="20"
+                                        y="50"
+                                        width="160"
+                                        height="80"
+                                        rx="12"
+                                        fill="url(#printerGradient)"
+                                        stroke="#8b5cf6"
+                                        stroke-width="2"
+                                    />
+                                    <!-- Paper Input -->
+                                    <rect
+                                        x="50"
+                                        y="20"
+                                        width="100"
+                                        height="35"
+                                        rx="6"
+                                        fill="#f1f5f9"
+                                        stroke="#cbd5e1"
+                                        stroke-width="2"
+                                    />
+                                    <!-- Paper Stack Lines -->
+                                    <line
+                                        x1="60"
+                                        y1="30"
+                                        x2="140"
+                                        y2="30"
+                                        stroke="#e2e8f0"
+                                        stroke-width="2"
+                                    />
+                                    <line
+                                        x1="60"
+                                        y1="38"
+                                        x2="140"
+                                        y2="38"
+                                        stroke="#e2e8f0"
+                                        stroke-width="2"
+                                    />
+                                    <!-- Paper Coming Out -->
+                                    <rect
+                                        x="60"
+                                        y="125"
+                                        width="80"
+                                        height="32"
+                                        rx="3"
+                                        fill="white"
+                                        stroke="#e2e8f0"
+                                        stroke-width="2"
+                                    />
+                                    <line
+                                        x1="72"
+                                        y1="135"
+                                        x2="128"
+                                        y2="135"
+                                        stroke="#8b5cf6"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                    />
+                                    <line
+                                        x1="72"
+                                        y1="143"
+                                        x2="118"
+                                        y2="143"
+                                        stroke="#a78bfa"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                    />
+                                    <line
+                                        x1="72"
+                                        y1="151"
+                                        x2="108"
+                                        y2="151"
+                                        stroke="#c4b5fd"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                    />
+                                    <!-- Control Panel -->
+                                    <rect
+                                        x="128"
+                                        y="68"
+                                        width="40"
+                                        height="28"
+                                        rx="6"
+                                        fill="#1e1b4b"
+                                    />
+                                    <circle
+                                        cx="140"
+                                        cy="82"
+                                        r="5"
+                                        fill="#22c55e"
+                                    >
+                                        <animate
+                                            attributeName="opacity"
+                                            values="1;0.5;1"
+                                            dur="2s"
+                                            repeatCount="indefinite"
                                         />
-                                        <!-- Printer Body -->
-                                        <rect
-                                            x="20"
-                                            y="50"
-                                            width="160"
-                                            height="80"
-                                            rx="12"
-                                            fill="url(#printerGradient)"
-                                            stroke="#8b5cf6"
-                                            stroke-width="2"
+                                    </circle>
+                                    <circle
+                                        cx="158"
+                                        cy="82"
+                                        r="5"
+                                        fill="#f97316"
+                                    />
+                                    <!-- Scanner Line -->
+                                    <rect
+                                        x="35"
+                                        y="95"
+                                        width="85"
+                                        height="4"
+                                        rx="2"
+                                        fill="url(#scannerGradient)"
+                                    >
+                                        <animate
+                                            attributeName="x"
+                                            values="35;80;35"
+                                            dur="3s"
+                                            repeatCount="indefinite"
                                         />
-                                        <!-- Paper Input -->
-                                        <rect
-                                            x="50"
-                                            y="20"
-                                            width="100"
-                                            height="35"
-                                            rx="6"
-                                            fill="#f1f5f9"
-                                            stroke="#cbd5e1"
-                                            stroke-width="2"
-                                        />
-                                        <!-- Paper Stack Lines -->
-                                        <line
-                                            x1="60"
-                                            y1="30"
-                                            x2="140"
-                                            y2="30"
-                                            stroke="#e2e8f0"
-                                            stroke-width="2"
-                                        />
-                                        <line
-                                            x1="60"
-                                            y1="38"
-                                            x2="140"
-                                            y2="38"
-                                            stroke="#e2e8f0"
-                                            stroke-width="2"
-                                        />
-                                        <!-- Paper Coming Out -->
-                                        <rect
-                                            x="60"
-                                            y="125"
-                                            width="80"
-                                            height="32"
-                                            rx="3"
-                                            fill="white"
-                                            stroke="#e2e8f0"
-                                            stroke-width="2"
-                                        />
-                                        <line
-                                            x1="72"
-                                            y1="135"
-                                            x2="128"
-                                            y2="135"
-                                            stroke="#8b5cf6"
-                                            stroke-width="2"
-                                            stroke-linecap="round"
-                                        />
-                                        <line
-                                            x1="72"
-                                            y1="143"
-                                            x2="118"
-                                            y2="143"
-                                            stroke="#a78bfa"
-                                            stroke-width="2"
-                                            stroke-linecap="round"
-                                        />
-                                        <line
-                                            x1="72"
-                                            y1="151"
-                                            x2="108"
-                                            y2="151"
-                                            stroke="#c4b5fd"
-                                            stroke-width="2"
-                                            stroke-linecap="round"
-                                        />
-                                        <!-- Control Panel -->
-                                        <rect
-                                            x="128"
-                                            y="68"
-                                            width="40"
-                                            height="28"
-                                            rx="6"
-                                            fill="#1e1b4b"
-                                        />
-                                        <circle
-                                            cx="140"
-                                            cy="82"
-                                            r="5"
-                                            fill="#22c55e"
+                                    </rect>
+                                    <!-- Glossy Highlight -->
+                                    <rect
+                                        x="25"
+                                        y="55"
+                                        width="60"
+                                        height="15"
+                                        rx="4"
+                                        fill="white"
+                                        opacity="0.2"
+                                    />
+                                    <!-- Gradients -->
+                                    <defs>
+                                        <linearGradient
+                                            id="printerGradient"
+                                            x1="20"
+                                            y1="50"
+                                            x2="20"
+                                            y2="130"
                                         >
-                                            <animate
-                                                attributeName="opacity"
-                                                values="1;0.5;1"
-                                                dur="2s"
-                                                repeatCount="indefinite"
+                                            <stop
+                                                offset="0%"
+                                                stop-color="#f8fafc"
                                             />
-                                        </circle>
-                                        <circle
-                                            cx="158"
-                                            cy="82"
-                                            r="5"
-                                            fill="#f97316"
-                                        />
-                                        <!-- Scanner Line -->
-                                        <rect
-                                            x="35"
-                                            y="95"
-                                            width="85"
-                                            height="4"
-                                            rx="2"
-                                            fill="url(#scannerGradient)"
+                                            <stop
+                                                offset="100%"
+                                                stop-color="#e2e8f0"
+                                            />
+                                        </linearGradient>
+                                        <linearGradient
+                                            id="scannerGradient"
+                                            x1="0%"
+                                            y1="0%"
+                                            x2="100%"
+                                            y2="0%"
                                         >
-                                            <animate
-                                                attributeName="x"
-                                                values="35;80;35"
-                                                dur="3s"
-                                                repeatCount="indefinite"
+                                            <stop
+                                                offset="0%"
+                                                stop-color="#8b5cf6"
                                             />
-                                        </rect>
-                                        <!-- Glossy Highlight -->
-                                        <rect
-                                            x="25"
-                                            y="55"
-                                            width="60"
-                                            height="15"
-                                            rx="4"
-                                            fill="white"
-                                            opacity="0.2"
-                                        />
-                                        <!-- Gradients -->
-                                        <defs>
-                                            <linearGradient
-                                                id="printerGradient"
-                                                x1="20"
-                                                y1="50"
-                                                x2="20"
-                                                y2="130"
-                                            >
-                                                <stop
-                                                    offset="0%"
-                                                    stop-color="#f8fafc"
-                                                />
-                                                <stop
-                                                    offset="100%"
-                                                    stop-color="#e2e8f0"
-                                                />
-                                            </linearGradient>
-                                            <linearGradient
-                                                id="scannerGradient"
-                                                x1="0%"
-                                                y1="0%"
-                                                x2="100%"
-                                                y2="0%"
-                                            >
-                                                <stop
-                                                    offset="0%"
-                                                    stop-color="#8b5cf6"
-                                                />
-                                                <stop
-                                                    offset="50%"
-                                                    stop-color="#06b6d4"
-                                                />
-                                                <stop
-                                                    offset="100%"
-                                                    stop-color="#8b5cf6"
-                                                />
-                                            </linearGradient>
-                                        </defs>
-                                    </svg>
-                                </div>
-                                <!-- Status Badge -->
-                                <div
-                                    class="absolute -right-2 -top-2 flex items-center gap-1.5 rounded-full bg-gradient-to-r from-emerald-500 to-teal-500 px-3 py-1.5 text-xs font-semibold text-white"
-                                >
-                                    <span
-                                        class="h-2 w-2 animate-pulse rounded-full bg-white"
-                                    ></span>
-                                    Ready
-                                </div>
+                                            <stop
+                                                offset="50%"
+                                                stop-color="#06b6d4"
+                                            />
+                                            <stop
+                                                offset="100%"
+                                                stop-color="#8b5cf6"
+                                            />
+                                        </linearGradient>
+                                    </defs>
+                                </svg>
+                            </div>
+                            <!-- Status Badge -->
+                            <div
+                                class="absolute -right-2 -top-2 flex items-center gap-1.5 rounded-full bg-gradient-to-r from-emerald-500 to-teal-500 px-3 py-1.5 text-xs font-semibold text-white"
+                            >
+                                <span
+                                    class="h-2 w-2 animate-pulse rounded-full bg-white"
+                                ></span>
+                                Ready
                             </div>
                         </div>
+                    </div>
 
                     <!-- Quick Features -->
                     <div class="flex justify-center gap-6">
                         <div class="flex items-center gap-2">
-                            <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-violet-100">
+                            <div
+                                class="flex h-10 w-10 items-center justify-center rounded-xl bg-violet-100"
+                            >
                                 <Shield class="h-5 w-5 text-violet-600" />
                             </div>
-                            <span class="text-sm font-medium text-slate-700">Secure</span>
+                            <span class="text-sm font-medium text-slate-700"
+                                >Secure</span
+                            >
                         </div>
                         <div class="flex items-center gap-2">
-                            <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-100">
+                            <div
+                                class="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-100"
+                            >
                                 <Zap class="h-5 w-5 text-orange-500" />
                             </div>
-                            <span class="text-sm font-medium text-slate-700">Instant</span>
+                            <span class="text-sm font-medium text-slate-700"
+                                >Instant</span
+                            >
                         </div>
                         <div class="flex items-center gap-2">
-                            <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-100">
+                            <div
+                                class="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-100"
+                            >
                                 <EyeOff class="h-5 w-5 text-emerald-500" />
                             </div>
-                            <span class="text-sm font-medium text-slate-700">Private</span>
+                            <span class="text-sm font-medium text-slate-700"
+                                >Private</span
+                            >
                         </div>
                     </div>
                 </div>
@@ -752,7 +764,9 @@
                     Get your documents printed in four simple steps.
                 </p>
             </div>
-            <div class="relative grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4">
+            <div
+                class="relative grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4"
+            >
                 <!-- Connection Line -->
                 <div
                     class="absolute left-0 right-0 top-24 hidden h-1 bg-gradient-to-r from-cyan-500 via-violet-500 via-orange-500 to-emerald-500 md:block"
@@ -779,7 +793,9 @@
                             >
                                 {step.title}
                             </h3>
-                            <p class="flex-grow text-center text-sm text-slate-600">
+                            <p
+                                class="flex-grow text-center text-sm text-slate-600"
+                            >
                                 {step.description}
                             </p>
                         </div>
@@ -856,8 +872,8 @@
                         >
                     </a>
                     <p class="max-w-sm text-slate-600">
-                        Anonymous printing made simple. Upload, pay, and collect
-                        - no account needed, no personal data stored.
+                        Printing made simple. Upload, Pay, and Collect - no
+                        personal data stored.
                     </p>
                 </div>
                 <div>
@@ -884,21 +900,21 @@
                     <ul class="space-y-3 text-slate-600">
                         <li>
                             <a
-                                href="/help"
+                                href={'javascript:void(0);'}
                                 class="transition-colors hover:text-violet-600"
                                 >Help Center</a
                             >
                         </li>
                         <li>
                             <a
-                                href="/contact"
+                                href={'javascript:void(0);'}
                                 class="transition-colors hover:text-violet-600"
                                 >Contact Us</a
                             >
                         </li>
                         <li>
                             <a
-                                href="/privacy"
+                                href={'javascript:void(0);'}
                                 class="transition-colors hover:text-violet-600"
                                 >Privacy Policy</a
                             >
