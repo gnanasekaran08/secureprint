@@ -543,7 +543,7 @@
                         class="inline-flex items-center gap-2 rounded-full border border-violet-200/50 bg-gradient-to-r from-violet-50 to-indigo-50 px-5 py-2.5 text-sm font-semibold text-violet-700 shadow-sm"
                     >
                         <Shield class="h-4 w-4" />
-                        Secure & Private
+                        100% Secure & Private
                     </div>
                     <div
                         class="h-px w-12 bg-gradient-to-l from-transparent to-violet-400"
@@ -600,8 +600,9 @@
                 <p
                     class="mb-10 text-lg leading-relaxed text-slate-600 lg:text-xl lg:leading-relaxed"
                 >
-                    Upload your documents, pay securely, and collect your
-                    prints.
+                    Upload your documents securely, and pay then collect your
+                    prints from shops. Doesn't need to expose the your personal
+                    details.
                     <span class="font-medium text-violet-600"
                         >No sign-up required</span
                     >, no personal data collected. Your privacy matters.
