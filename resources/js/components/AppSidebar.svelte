@@ -19,7 +19,7 @@
     } from '@/components/ui/sidebar';
     import { toUrl } from '@/lib/utils';
     import type { NavItem } from '@/types';
-    import { dashboard } from '@/routes';
+    import { dashboard, shops } from '@/routes';
 
     let {
         children,
@@ -35,7 +35,7 @@
         },
         {
             title: 'Shops',
-            href: '#',
+            href: shops(),
             icon: Folder,
         },
     ];
