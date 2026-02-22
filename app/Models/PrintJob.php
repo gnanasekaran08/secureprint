@@ -2,6 +2,7 @@
 namespace App\Models;
 
 use App\Models\Attachment;
+use App\Models\Shop;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -28,6 +29,11 @@ class PrintJob extends Model
         'otp',
         'otp_expires_at',
     ];
+
+    public function shop()
+    {
+        return $this->belongsTo(Shop::class, 'shop_id');
+    }
 
     public function attachments()
     {
