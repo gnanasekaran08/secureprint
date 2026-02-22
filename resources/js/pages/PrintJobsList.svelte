@@ -34,12 +34,19 @@
                 },
             });
 
-            if (response.ok) {
-                alert('Print job files removed successfully.');
-                // Refresh the page to update the list
+            if(!response.ok) {
+                const errorData = await response.json();
+                alert(errorData.message || 'Failed to remove print job files. Please try again.');
+                return;
+            }
+
+            const data = await response.json();
+
+            if (data.status === 'success') {
+                alert(data.message);
                 router.reload();
             } else {
-                alert('Failed to remove print job files. Please try again.');
+                alert(data.message || 'Failed to remove print job files. Please try again.');
             }
         } catch (error) {
             console.error('Error removing print job files:', error);
@@ -97,7 +104,7 @@
                                     class="text-red-700 tooltip tooltip-left"
                                     data-tip="Remove Print Job Files"
                                     onclick={() =>
-                                        destroyPrintJob(print_job.uuid)}
+                                        destroyPrintJob(print_job.job_uuid)}
                                 >
                                     <Trash2 size={18} />
                                 </a>

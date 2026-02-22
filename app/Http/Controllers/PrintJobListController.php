@@ -32,7 +32,7 @@ class PrintJobListController extends Controller
     public function removeFiles($uuid)
     {
         try {
-            $printJob = PrintJob::where('job_uuid', $uuid)->firstOrFail();
+            $printJob = PrintJob::where('job_uuid', $uuid)->first();
 
             if (! $printJob) {
                 return response()->json(['status' => 'error', 'message' => 'No files found for this print job.'], 404);
