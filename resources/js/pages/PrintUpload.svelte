@@ -1,6 +1,8 @@
 <script lang="ts">
     import { page, router } from '@inertiajs/svelte';
     import AppHead from '@/components/AppHead.svelte';
+    import toast, { Toaster } from 'svelte-french-toast';
+
     import {
         Upload,
         FileText,
@@ -23,6 +25,7 @@
         FileStack,
         IndianRupee,
     } from 'lucide-svelte';
+    import { onMount } from 'svelte';
 
     let {
         shop = null,
@@ -75,24 +78,27 @@
     );
     const total = $derived(subtotal - discount);
 
-    // Functions
-    function handleFileSelect(event: Event) {
+    onMount(() => {
+        console.log('Uploading Doc');
+    });
+
+    const handleFileSelect = (event: Event) => {
         const input = event.target as HTMLInputElement;
         if (input.files) {
             files = [...files, ...Array.from(input.files)];
         }
         input.value = '';
-    }
+    };
 
-    function removeFile(index: number) {
+    const removeFile = (index: number) => {
         files = files.filter((_, i) => i !== index);
-    }
+    };
 
-    function formatFileSize(bytes: number): string {
+    const formatFileSize = (bytes: number): string => {
         if (bytes < 1024) return bytes + ' B';
         if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
         return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
-    }
+    };
 
     async function uploadFiles() {
         if (files.length === 0) return;
@@ -121,9 +127,18 @@
             if (data.success) {
                 printJob = data.print_job;
                 currentStep = 'checkout';
+            } else {
+                toast.error('Something went wrong. Please try again.', {
+                    duration: 5000,
+                    position: 'top-center',
+                });
             }
         } catch (err) {
             console.error('Upload failed:', err);
+            toast.error('Failed to upload files. Please try again.', {
+                duration: 5000,
+                position: 'top-center',
+            });
         } finally {
             isUploading = false;
         }
@@ -155,20 +170,37 @@
             if ('success' === status) {
                 paymentOtp = data.otp;
                 currentStep = 'success';
+                toast.success(
+                    'Payment successful! Your collection code is ' + paymentOtp,
+                    {
+                        duration: 5000,
+                        position: 'top-center',
+                    },
+                );
+            } else {
+                toast.error('Something went wrong. Please try again.', {
+                    duration: 5000,
+                    position: 'top-center',
+                });
             }
         } catch (err) {
             console.error('Payment failed:', err);
+            toast.error(
+                'Failed to process payment. Please try again. ERROR : ' + err,
+                {
+                    duration: 5000,
+                    position: 'top-center',
+                },
+            );
         } finally {
             isProcessingPayment = false;
         }
     }
 
-    function goBack() {
+    const goBack = () => {
         if (currentStep === 'settings') currentStep = 'upload';
         else if (currentStep === 'checkout') currentStep = 'settings';
-    }
-
-    const paidManually = () => {};
+    };
 </script>
 
 <AppHead title="Print Documents">
@@ -177,7 +209,7 @@
         content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
     />
 </AppHead>
-
+<Toaster />
 <div
     data-theme="secureprint"
     class="min-h-screen bg-gradient-to-b from-slate-50 to-white"
