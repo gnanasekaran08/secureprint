@@ -1,10 +1,10 @@
 <script lang="ts">
-    import QrCode from './../../../node_modules/lucide-svelte/dist/icons/qr-code.svelte';
     import AppHead from '@/components/AppHead.svelte';
     import PlaceholderPattern from '@/components/PlaceholderPattern.svelte';
     import AppLayout from '@/layouts/AppLayout.svelte';
     import type { BreadcrumbItem } from '@/types';
     import { dashboard } from '@/routes';
+    import { QrCode } from '@lucide/svelte';
 
     let { shops, pagination } = $props();
 

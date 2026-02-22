@@ -19,7 +19,8 @@
     } from '@/components/ui/sidebar';
     import { toUrl } from '@/lib/utils';
     import type { NavItem } from '@/types';
-    import { dashboard, shops } from '@/routes';
+    import { dashboard, printJobs, shops } from '@/routes';
+    import { Printer } from 'lucide-svelte';
 
     let {
         children,
@@ -37,6 +38,11 @@
             title: 'Shops',
             href: shops(),
             icon: Folder,
+        },
+        {
+            title: 'Print Jobs',
+            href: printJobs(),
+            icon: Printer,
         },
     ];
 
