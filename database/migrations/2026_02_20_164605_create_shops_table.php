@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->uuid('uuid')->unique()->index();
             $table->string('name')->index();
+            $table->unsignedBigInteger('user_id')->index();
             $table->unsignedBigInteger('created_by')->index();
             $table->unsignedBigInteger('updated_by')->index()->nullable();
             $table->timestamps();

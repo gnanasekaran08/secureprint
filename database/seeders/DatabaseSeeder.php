@@ -14,14 +14,22 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
         User::factory()->create([
-            'name'  => 'Dev',
-            'email' => 'dev@code.io',
+            'name'         => 'Dev',
+            'email'        => 'dev@code.io',
+            'phone_number' => '1234567890',
+            'type'         => 'admin',
         ]);
 
-        Shop::factory()->count(5)->create();
+        User::factory()->count(10)->create();
+
+        foreach (User::where('type', 'shop')->get() as $user) {
+            Shop::factory()
+                ->count(rand(1, 3))
+                ->create([
+                    'user_id' => $user->id,
+                ]);
+        }
 
         PrintJob::factory()->count(50)->create()
             ->each(function ($printJob) {

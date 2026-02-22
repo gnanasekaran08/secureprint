@@ -41,10 +41,11 @@ class PrintJobListController extends Controller
             foreach ($printJob->attachments as $attachment) {
                 Log::info('Deleting file for attachment', ['attachment_id' => $attachment->id, 'filepath' => $attachment->filepath]);
                 $attachment->deleteFile();
-                $attachment->delete();
+                // $attachment->delete();
             }
-
-            $printJob->delete();
+            $printJob->removed_at = now();
+            $printJob->save();
+            // $printJob->delete();
 
             return response()->json(['status' => 'success', 'message' => 'Print job files removed successfully.'], 200);
         } catch (Exception $e) {

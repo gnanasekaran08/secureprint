@@ -76,6 +76,7 @@ class PrintController extends Controller
             'shop_id'         => $shop?->id,
             'job_uuid'        => Str::uuid(),
             'user_id'         => 1,
+            'print_code'      => rand(100000, 999999),
             'status'          => 'pending',
             'total_copies'    => $request->copies,
             'is_color'        => $request->is_color,
