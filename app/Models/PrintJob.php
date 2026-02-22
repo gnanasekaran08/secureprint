@@ -14,6 +14,7 @@ class PrintJob extends Model
     protected $fillable = [
         'shop_id',
         'job_uuid',
+        'print_code',
         'user_id',
         'printer',
         'error_message',
@@ -28,6 +29,7 @@ class PrintJob extends Model
         'is_portrait',
         'otp',
         'otp_expires_at',
+        'removed_at',
     ];
 
     public function shop()

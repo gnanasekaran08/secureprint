@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('print_jobs', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('shop_id')->index();
-            $table->uuid('job_uuid')->unique();
+            $table->uuid('job_uuid')->unique()->index();
+            $table->integer('print_code')->unique()->index();
             $table->unsignedBigInteger('user_id');
             $table->string('printer')->nullable();
             $table->string('error_message')->nullable();
@@ -29,6 +30,7 @@ return new class extends Migration
             $table->boolean('is_portrait')->default(true);
             $table->integer('otp')->nullable();
             $table->timestamp('otp_expires_at')->nullable();
+            $table->timestamp('removed_at')->nullable()->index();
             $table->timestamps();
         });
     }

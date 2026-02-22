@@ -18,8 +18,9 @@ class ShopFactory extends Factory
         return [
             'uuid'       => $this->faker->uuid(),
             'name'       => $this->faker->company(),
-            'created_by' => 1,    // Assuming a default user ID for created_by
-            'updated_by' => null, // Assuming no updates initially
+            'user_id'    => 2,
+            'created_by' => 1, // Assuming a default user ID for created_by
+            'updated_by' => 1, // Assuming no updates initially
         ];
     }
 }
