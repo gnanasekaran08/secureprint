@@ -24,19 +24,21 @@
         }
 
         try {
-
             const response = await fetch(`/print-jobs/${uuid}/delete-files`, {
                 method: 'POST',
                 headers: {
                     'X-CSRF-TOKEN': $page.props.csrf_token,
                     'Content-Type': 'application/json',
-                    'Accept': 'application/json',
+                    Accept: 'application/json',
                 },
             });
 
-            if(!response.ok) {
+            if (!response.ok) {
                 const errorData = await response.json();
-                alert(errorData.message || 'Failed to remove print job files. Please try again.');
+                alert(
+                    errorData.message ||
+                        'Failed to remove print job files. Please try again.',
+                );
                 return;
             }
 
@@ -46,7 +48,10 @@
                 alert(data.message);
                 router.reload();
             } else {
-                alert(data.message || 'Failed to remove print job files. Please try again.');
+                alert(
+                    data.message ||
+                        'Failed to remove print job files. Please try again.',
+                );
             }
         } catch (error) {
             console.error('Error removing print job files:', error);
@@ -67,15 +72,17 @@
                 <thead>
                     <tr>
                         <th></th>
+                        <th>Print Code</th>
                         <th>Shop Name</th>
-                        <th>Attachements</th>
+                        <th>Submitted At</th>
+                        <th>Attachments</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     {#if print_jobs.length === 0}
                         <tr>
-                            <td colspan="5" class="text-center">
+                            <td colspan="6" class="text-center">
                                 No records found.
                             </td>
                         </tr>
@@ -83,7 +90,9 @@
                     {#each print_jobs as print_job, index}
                         <tr>
                             <th>{index + 1}</th>
+                            <td class="text-md font-semibold">{print_job.print_code}</td>
                             <td>{print_job.shop.name}</td>
+                            <td>{print_job.created_at}</td>
                             <td>
                                 <div class="flex gap-2">
                                     {#each print_job.attachments as attachment}

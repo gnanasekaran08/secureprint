@@ -10,7 +10,9 @@ class ShopListController extends Controller
     public function index(Request $request)
     {
         try {
-            $shops = Shop::withCount('today_print_jobs')->orderBy('created_at', 'desc')->paginate(25);
+            $shops = Shop::query()
+                ->when("shop" === auth()->user()->type, fn($query) => $query->where('user_id', auth()->id()))
+                ->withCount('today_print_jobs')->orderBy('created_at', 'desc')->paginate(25);
 
             $formattedShops = $shops->getCollection()->transform(function ($shop) {
                 return [

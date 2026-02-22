@@ -11,7 +11,13 @@ class PrintJobListController extends Controller
     public function index(Request $request)
     {
         try {
-            $printJobs = PrintJob::with('shop', 'attachments')->orderBy('created_at', 'desc')->paginate(25);
+            $printJobs = PrintJob::query()
+                ->when("shop" === auth()->user()->type, function ($query) {
+                    return $query->whereHas('shop', function ($q) {
+                        $q->where('user_id', auth()->id());
+                    });
+                })
+                ->with('shop', 'attachments')->orderBy('created_at', 'desc')->paginate(25);
 
             return inertia('PrintJobsList', [
                 'print_jobs' => $printJobs->items(),

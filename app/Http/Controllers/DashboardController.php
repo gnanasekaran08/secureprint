@@ -10,8 +10,15 @@ class DashboardController extends Controller
     public function index()
     {
         try {
-            $overallShopsCount = Shop::count();
-            $todayPrintsCount  = PrintJob::whereDate('created_at', now()->today()->toDateString())->count();
+            $overallShopsCount = Shop::when("shop" === auth()->user()->type, function ($query) {
+                return $query->where('user_id', auth()->id());
+            })->count();
+
+            $todayPrintsCount = PrintJob::when("shop" === auth()->user()->type, function ($query) {
+                return $query->whereHas('shop', function ($q) {
+                    $q->where('user_id', auth()->id());
+                });
+            })->whereDate('created_at', now()->today()->toDateString())->count();
 
             return inertia('Dashboard', [
                 'data' => [
