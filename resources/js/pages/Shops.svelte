@@ -53,7 +53,11 @@
                             <td>{shop.owner_name}</td>
                             <td>{shop.email}</td>
                             <td>{shop.mobile_number}</td>
-                            <td></td>
+                            <td class="text-center">
+                                <div class="text-lg font-semibold">
+                                    {shop.today_print_jobs_count}
+                                </div></td
+                            >
                             <td>
                                 <a
                                     href={'#'}

@@ -10,17 +10,18 @@ class ShopListController extends Controller
     public function index(Request $request)
     {
         try {
-            $shops = Shop::orderBy('created_at', 'desc')->paginate(25);
+            $shops = Shop::withCount('today_print_jobs')->orderBy('created_at', 'desc')->paginate(25);
 
             $formattedShops = $shops->getCollection()->transform(function ($shop) {
                 return [
-                    'id'            => $shop->id,
-                    'shop_uuid'     => $shop->uuid,
-                    'name'          => $shop->name,
-                    'owner_name'    => $shop->user->name,
-                    'email'         => $shop->user->email,
-                    'mobile_number' => $shop->user->mobile_number ?? null,
-                    'created_at'    => $shop->created_at->toDateTimeString(),
+                    'id'                     => $shop->id,
+                    'shop_uuid'              => $shop->uuid,
+                    'name'                   => $shop->name,
+                    'owner_name'             => $shop->user->name,
+                    'email'                  => $shop->user->email,
+                    'mobile_number'          => $shop->user->mobile_number ?? null,
+                    'created_at'             => $shop->created_at->toDateTimeString(),
+                    'today_print_jobs_count' => $shop->today_print_jobs_count,
                 ];
             });
 
