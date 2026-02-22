@@ -25,7 +25,7 @@
 <AppLayout {breadcrumbs}>
     <div class="h-full overflow-x-auto rounded-xl p-4">
         <div class="overflow-x-auto">
-            <table class="table table-zebra">
+            <table class="table table-zebra table-compact w-full table-sm">
                 <!-- head -->
                 <thead>
                     <tr>
@@ -34,6 +34,7 @@
                         <th>Shop Owner</th>
                         <th>Registered Email</th>
                         <th>Registered Mobile No</th>
+                        <th>Today Stat</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -52,6 +53,7 @@
                             <td>{shop.owner_name}</td>
                             <td>{shop.email}</td>
                             <td>{shop.mobile_number}</td>
+                            <td></td>
                             <td>
                                 <a
                                     href={'#'}
