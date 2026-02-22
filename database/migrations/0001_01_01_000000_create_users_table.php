@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->nullable()->index();
-            $table->string('phone_number')->index()->nullable();
+            $table->string('mobile_number')->index()->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('type', 10)->default('shop')->index();

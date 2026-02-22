@@ -15,10 +15,10 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         User::factory()->create([
-            'name'         => 'Code.',
-            'email'        => 'code@dev.io',
-            'phone_number' => '1234567890',
-            'type'         => 'admin',
+            'name'          => 'Code.',
+            'email'         => 'code@dev.io',
+            'mobile_number' => '1234567890',
+            'type'          => 'admin',
         ]);
 
         User::factory()->count(10)->create();

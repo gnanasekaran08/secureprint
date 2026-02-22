@@ -17,9 +17,9 @@ class ShopListController extends Controller
                     'id'                     => $shop->id,
                     'shop_uuid'              => $shop->uuid,
                     'name'                   => $shop->name,
-                    'owner_name'             => $shop->user->name,
-                    'email'                  => $shop->user->email,
-                    'mobile_number'          => $shop->user->mobile_number ?? null,
+                    'owner_name'             => $shop->owner->name,
+                    'email'                  => $shop->owner->email,
+                    'mobile_number'          => $shop->owner->mobile_number ?? null,
                     'created_at'             => $shop->created_at->toDateTimeString(),
                     'today_print_jobs_count' => $shop->today_print_jobs_count,
                 ];
