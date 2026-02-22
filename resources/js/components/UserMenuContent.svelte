@@ -34,7 +34,7 @@
     </div>
 </DropdownMenuLabel>
 <DropdownMenuSeparator />
-<DropdownMenuGroup>
+<!-- <DropdownMenuGroup>
     <DropdownMenuItem asChild>
         {#snippet children(props)}
             <Link class={props.class} href={toUrl(edit())} prefetch onclick={props.onClick}>
@@ -43,8 +43,8 @@
             </Link>
         {/snippet}
     </DropdownMenuItem>
-</DropdownMenuGroup>
-<DropdownMenuSeparator />
+</DropdownMenuGroup> -->
+<!-- <DropdownMenuSeparator /> -->
 <DropdownMenuItem asChild>
     {#snippet children(props)}
         <Link

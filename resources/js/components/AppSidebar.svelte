@@ -33,6 +33,11 @@
             href: dashboard(),
             icon: LayoutGrid,
         },
+        {
+            title: 'Shops',
+            href: '#',
+            icon: Folder,
+        },
     ];
 
     const footerNavItems: NavItem[] = [
@@ -52,15 +57,19 @@
 <Sidebar collapsible="icon" variant="inset">
     <SidebarHeader>
         <SidebarMenu>
-                <SidebarMenuItem>
-                    <SidebarMenuButton size="lg" asChild>
-                        {#snippet children(props)}
-                            <Link {...props} href={toUrl(dashboard())} class={props.class}>
-                                <AppLogo />
-                            </Link>
-                        {/snippet}
-                    </SidebarMenuButton>
-                </SidebarMenuItem>
+            <SidebarMenuItem>
+                <SidebarMenuButton size="lg" asChild>
+                    {#snippet children(props)}
+                        <Link
+                            {...props}
+                            href={toUrl(dashboard())}
+                            class={props.class}
+                        >
+                            <AppLogo />
+                        </Link>
+                    {/snippet}
+                </SidebarMenuButton>
+            </SidebarMenuItem>
         </SidebarMenu>
     </SidebarHeader>
 
@@ -69,7 +78,6 @@
     </SidebarContent>
 
     <SidebarFooter>
-        <NavFooter items={footerNavItems} />
         <NavUser />
     </SidebarFooter>
 </Sidebar>
