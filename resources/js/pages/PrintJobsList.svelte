@@ -6,6 +6,7 @@
     import { PrinterCheck, Trash2 } from '@lucide/svelte';
     import { page, router } from '@inertiajs/svelte';
     import ShowPrintOTPModal from './Modals/ShowPrintOTPModal.svelte';
+    import toast, { Toaster } from 'svelte-french-toast';
 
     let { print_jobs, pagination } = $props();
     let canShowOTPModal: boolean = $state(false);
@@ -74,6 +75,7 @@
     };
 </script>
 
+<Toaster />
 <AppHead title="Print Jobs List" />
 
 <AppLayout {breadcrumbs}>
@@ -154,9 +156,19 @@
 {#if canShowOTPModal}
     <ShowPrintOTPModal
         printJobUuid={selectedPrintJobUuid}
-        on:close={() => {
+        onClose={() => {
             canShowOTPModal = false;
             selectedPrintJobUuid = null;
+        }}
+        triggerToast={(
+            message: string,
+            type: 'success' | 'error' = 'success',
+        ) => {
+            if (type === 'success') {
+                toast.success(message);
+            } else {
+                toast.error(message);
+            }
         }}
     />
 {/if}
