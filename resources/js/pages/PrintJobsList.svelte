@@ -72,7 +72,7 @@
                 <thead>
                     <tr>
                         <th></th>
-                        <th>Print Code</th>
+                        <th>Printer No</th>
                         <th>Shop Name</th>
                         <th>Submitted At</th>
                         <th>Attachments</th>
@@ -90,7 +90,7 @@
                     {#each print_jobs as print_job, index}
                         <tr>
                             <th>{index + 1}</th>
-                            <td class="text-md font-semibold">{print_job.print_code}</td>
+                            <td class="text-3md font-semibold">{print_job.print_code}</td>
                             <td>{print_job.shop.name}</td>
                             <td>{print_job.created_at}</td>
                             <td>
