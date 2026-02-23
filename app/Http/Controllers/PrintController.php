@@ -235,8 +235,8 @@ class PrintController extends Controller
                 ->get()
                 ->map(function ($attachment) {
                     return [
-                        'filename'  => $attachment->filename,
-                        'file_path' => asset('storage/' . $attachment->filepath),
+                        'filename' => $attachment->filename,
+                        'filepath' => asset('storage' . $attachment->filepath),
                     ];
                 });
 

@@ -1,6 +1,6 @@
 <script lang="ts">
     import { onMount } from 'svelte';
-    import { CheckCircle, Loader2, Printer, X } from 'lucide-svelte';
+    import { CheckCircle, Files, Loader2, Printer, X } from 'lucide-svelte';
     import { page } from '@inertiajs/svelte';
 
     let { printJobUuid, onClose, triggerToast } = $props();
@@ -10,6 +10,7 @@
     let isVerifying = $state(false);
     let isVerified = $state(false);
     let error = $state<string | null>(null);
+    let files = $state<any[]>([]);
 
     const otp = $derived(otpDigits.join(''));
     const isComplete = $derived(otpDigits.every((d) => d !== ''));
@@ -114,10 +115,7 @@
                 'success',
             );
 
-            const files = response?.data?.files || [];
-            console.log('files', files);
-
-
+            files = response?.data?.files || [];
         } catch (err) {
             error = 'Something went wrong. Please try again.';
         } finally {
@@ -209,6 +207,39 @@
             <p class="mt-4 text-center text-xs text-slate-500">
                 The code was provided after payment
             </p>
+        {/if}
+
+        {#if files.length > 0 && isVerified}
+            <div class="mt-6">
+                <h4 class="mb-2 text-sm font-medium text-slate-700">
+                    Your Files:
+                </h4>
+                <ul class="space-y-2">
+                    {#each files as file}
+                        <li
+                            class="flex items-center gap-3 rounded-lg border p-3"
+                        >
+                            <div>
+                                <Files class="h-5 w-5 text-slate-500" />
+                                <span
+                                    class="text-sm text-slate-600 text-truncate block max-w-xs"
+                                >
+                                    {file.filename}
+                                </span>
+                            </div>
+                            <a
+                                href={"javascript:void(0)"}
+                                class="ml-auto text-sm text-blue-600 hover:underline"
+                                onclick={() => {
+                                    window.open(file.filepath, '_blank');
+                                }}
+                            >
+                                Print
+                            </a>
+                        </li>
+                    {/each}
+                </ul>
+            </div>
         {/if}
     </div>
     <form method="dialog" class="modal-backdrop">
