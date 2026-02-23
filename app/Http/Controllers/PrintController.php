@@ -190,4 +190,72 @@ class PrintController extends Controller
 
         return 1;
     }
+
+    /**
+     * Verify OTP for a print job.
+     */
+    public function verifyOtp(Request $request)
+    {
+        $request->validate([
+            'print_job_uuid' => 'required|string',
+            'otp'            => 'required|string|size:4',
+        ]);
+
+        $printJob = PrintJob::where('job_uuid', $request->print_job_uuid)->first();
+
+        if (! $printJob) {
+            return response()->json([
+                'status'  => 'error',
+                'message' => 'Print job not found.',
+            ], 404);
+        }
+
+        if ($printJob->otp_expires_at && now()->gt($printJob->otp_expires_at)) {
+            return response()->json([
+                'status'  => 'error',
+                'message' => 'OTP has expired. Please create a new print job.',
+            ], 400);
+        }
+
+        if ((int) $printJob->otp !== (int) $request->otp) {
+            return response()->json([
+                'status'  => 'error',
+                'message' => 'Invalid OTP. Please try again.',
+            ], 400);
+        }
+
+        try {
+
+            // Mark as verified/ready to print
+            $printJob->update([
+                'status' => 'verified',
+            ]);
+
+            $files = $printJob->attachments()
+                ->get()
+                ->map(function ($attachment) {
+                    return [
+                        'filename' => $attachment->filename,
+                        'filepath' => asset('storage' . $attachment->filepath),
+                    ];
+                });
+
+            return response()->json([
+                'status'  => 'success',
+                'message' => 'OTP verified successfully!',
+                'data'    => [
+                    'print_job_uuid' => $printJob->job_uuid,
+                    'shop_id'        => $printJob->shop_id,
+                    'files'          => $files,
+                ],
+            ]);
+
+        } catch (Exception $e) {
+            return response()->json([
+                'status'  => 'error',
+                'message' => 'An error occurred while verifying OTP. Please try again. ERROR: ' . $e->getMessage(),
+            ], 500);
+        }
+
+    }
 }

@@ -3,10 +3,15 @@
     import AppLayout from '@/layouts/AppLayout.svelte';
     import type { BreadcrumbItem } from '@/types';
     import { dashboard } from '@/routes';
-    import { Trash2 } from '@lucide/svelte';
+    import { PrinterCheck, Trash2 } from '@lucide/svelte';
     import { page, router } from '@inertiajs/svelte';
+    import ShowPrintOTPModal from './Modals/ShowPrintOTPModal.svelte';
+    import toast, { Toaster } from 'svelte-french-toast';
 
     let { print_jobs, pagination } = $props();
+    let canShowOTPModal: boolean = $state(false);
+    let selectedPrintJobUuid: string | null = $state(null);
+
     const breadcrumbs: BreadcrumbItem[] = [
         {
             title: 'Dashboard',
@@ -60,8 +65,17 @@
             );
         }
     };
+
+    const initatePrint = (uuid: string) => {
+        canShowOTPModal = true;
+        selectedPrintJobUuid = uuid;
+        console.log('Initiating print for job UUID:', uuid);
+        console.log('OTP Modal visibility:', canShowOTPModal);
+        console.log('Selected Print Job UUID:', selectedPrintJobUuid);
+    };
 </script>
 
+<Toaster />
 <AppHead title="Print Jobs List" />
 
 <AppLayout {breadcrumbs}>
@@ -90,7 +104,9 @@
                     {#each print_jobs as print_job, index}
                         <tr>
                             <th>{index + 1}</th>
-                            <td class="text-3md font-semibold">{print_job.print_code}</td>
+                            <td class="text-3md font-semibold"
+                                >{print_job.print_code}</td
+                            >
                             <td>{print_job.shop.name}</td>
                             <td>{print_job.created_at}</td>
                             <td>
@@ -108,15 +124,26 @@
                                 </div>
                             </td>
                             <td>
-                                <a
-                                    href={'#'}
-                                    class="text-red-700 tooltip tooltip-left"
-                                    data-tip="Remove Print Job Files"
-                                    onclick={() =>
-                                        destroyPrintJob(print_job.job_uuid)}
-                                >
-                                    <Trash2 size={18} />
-                                </a>
+                                <div class="flex gap-2">
+                                    <a
+                                        href={'#'}
+                                        class="text-blue-700 tooltip tooltip-left"
+                                        data-tip="Print the docs"
+                                        onclick={() =>
+                                            initatePrint(print_job.job_uuid)}
+                                    >
+                                        <PrinterCheck size={18} />
+                                    </a>
+                                    <a
+                                        href={'#'}
+                                        class="text-red-700 tooltip tooltip-left"
+                                        data-tip="Remove Print Job Files"
+                                        onclick={() =>
+                                            destroyPrintJob(print_job.job_uuid)}
+                                    >
+                                        <Trash2 size={18} />
+                                    </a>
+                                </div>
                             </td>
                         </tr>
                     {/each}
@@ -125,3 +152,23 @@
         </div>
     </div>
 </AppLayout>
+
+{#if canShowOTPModal}
+    <ShowPrintOTPModal
+        printJobUuid={selectedPrintJobUuid}
+        onClose={() => {
+            canShowOTPModal = false;
+            selectedPrintJobUuid = null;
+        }}
+        triggerToast={(
+            message: string,
+            type: 'success' | 'error' = 'success',
+        ) => {
+            if (type === 'success') {
+                toast.success(message);
+            } else {
+                toast.error(message);
+            }
+        }}
+    />
+{/if}
