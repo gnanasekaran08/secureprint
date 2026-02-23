@@ -5,8 +5,10 @@
     import type { BreadcrumbItem } from '@/types';
     import { dashboard } from '@/routes';
     import { QrCode } from '@lucide/svelte';
+    import ShowQRModal from './Modals/ShowQRModal.svelte';
 
     let { shops, pagination } = $props();
+    let selectedShop = $state(null);
 
     const breadcrumbs: BreadcrumbItem[] = [
         {
@@ -18,6 +20,11 @@
             href: '/shops',
         },
     ];
+
+    const showQRCode = (shop: any) => {
+        selectedShop = shop;
+        console.log('Show QR code for shop:', shop);
+    };
 </script>
 
 <AppHead title="Shops List" />
@@ -63,6 +70,7 @@
                                     href={'#'}
                                     class="tooltip btn btn-sm btn-ghost tooltip-left p-2"
                                     data-tip="View Print QR Code"
+                                    onclick={() => showQRCode(shop)}
                                 >
                                     <QrCode size={18} />
                                 </a>
@@ -74,3 +82,7 @@
         </div>
     </div>
 </AppLayout>
+
+{#if selectedShop}
+    <ShowQRModal shop={selectedShop} onClose={() => (selectedShop = null)} />
+{/if}

@@ -495,6 +495,13 @@
   resolved "https://registry.npmjs.org/@rtsao/scc/-/scc-1.1.0.tgz"
   integrity sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==
 
+"@svelte-put/qr@^2.1.1":
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@svelte-put/qr/-/qr-2.1.1.tgz#c3f35f01bab5e507a12477db227ec4a9d9e60203"
+  integrity sha512-upkHuCn1X83oaqU63zdwY6t6thjtSydtxE2y74GNlrKre5LogGVmZ4/qaPouWmkP5JcH2frbKZsX0YCr3xUFHw==
+  dependencies:
+    headless-qr "^1.0.3"
+
 "@sveltejs/acorn-typescript@^1.0.5":
   version "1.0.9"
   resolved "https://registry.npmjs.org/@sveltejs/acorn-typescript/-/acorn-typescript-1.0.9.tgz"
@@ -1845,6 +1852,11 @@ hasown@^2.0.2:
   integrity sha512-0hJU9SCPvmMzIBdZFqNPXWa6dqh7WdH0cII9y+CyS8rG3nL48Bclra9HmKhVVUHyPWNH5Y7xDwAB7bfgSjkUMQ==
   dependencies:
     function-bind "^1.1.2"
+
+headless-qr@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/headless-qr/-/headless-qr-1.0.3.tgz#da3dab4dc4de79ff32f593f359f316dd3781c955"
+  integrity sha512-HHVwf1i++Ho2vFstHxAdfP0OjB7Di44nGXbh3VXciuzwkuFb1oeFDCrfOLjFgHip/Kbc/wq2GOaSTiKQ81K/Yg==
 
 html5-qrcode@^2.3.8:
   version "2.3.8"
