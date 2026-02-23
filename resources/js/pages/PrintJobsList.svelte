@@ -105,7 +105,7 @@
                         <tr>
                             <th>{index + 1}</th>
                             <td class="text-3md font-semibold"
-                                >{print_job.print_code}</td
+                                >{print_job.doc_no}</td
                             >
                             <td>{print_job.shop.name}</td>
                             <td>{print_job.created_at}</td>

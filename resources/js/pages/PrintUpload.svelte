@@ -47,6 +47,7 @@
     let isProcessingPayment = $state(false);
     let printJob = $state<any>(null);
     let paymentOtp = $state<string | null>(null);
+    let printDocumentNo = $state<string | null>(null);
 
     // Bottom sheet states
     let showColorSheet = $state(false);
@@ -169,6 +170,7 @@
 
             if ('success' === status) {
                 paymentOtp = data.otp;
+                printDocumentNo = data.doc_no;
                 currentStep = 'success';
                 toast.success(
                     'Payment successful! Your collection code is ' + paymentOtp,
@@ -686,7 +688,27 @@
                         Payment Successful!
                     </h1>
                     <p class="mt-2 text-slate-600">
-                        Your print job has been submitted
+                        Your print job has been submitted.
+                    </p>
+                </div>
+
+                <div
+                    class="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-left text-sm"
+                >
+                    <p class="mb-2 text-sm font-semibold text-slate-800 text-center">Your Document No</p>
+
+                    <div class="flex justify-center gap-3">
+                        {#each printDocumentNo?.toString() || '----' as digit}
+                            <span
+                                class="flex h-14 w-12 items-center justify-center rounded-xl bg-white/20 text-3xl font-bold"
+                            >
+                                {digit}
+                            </span>
+                        {/each}
+                    </div>
+                    <p class="mb-2 text-sm text-slate-600 text-center">
+                        Use this code to track your print job and for any
+                        support inquiries.
                     </p>
                 </div>
 
@@ -695,7 +717,7 @@
                     class="rounded-2xl bg-gradient-to-br from-violet-500 to-indigo-600 p-6 text-white shadow-xl"
                 >
                     <p class="mb-2 text-sm text-white/80">
-                        Your Collection Code
+                        Your Documents Printing Code
                     </p>
                     <div class="flex justify-center gap-3">
                         {#each paymentOtp?.toString() || '----' as digit}
@@ -707,7 +729,8 @@
                         {/each}
                     </div>
                     <p class="mt-4 text-sm text-white/80">
-                        Show this code at the shop to collect your prints
+                        Show this code at the shop to print and collect your
+                        printed documents. They can't able to view the files or print, until you show this code to them.
                     </p>
                 </div>
 

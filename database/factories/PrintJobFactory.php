@@ -16,7 +16,7 @@ class PrintJobFactory extends Factory
     public function definition(): array
     {
         return [
-            'print_code'      => $this->faker->unique()->numberBetween(100000, 999999),
+            'doc_no'          => $this->faker->unique()->numberBetween(100000, 999999),
             'shop_id'         => $this->faker->numberBetween(1, 5),
             'job_uuid'        => $this->faker->uuid(),
             'user_id'         => $this->faker->numberBetween(1, 10),
