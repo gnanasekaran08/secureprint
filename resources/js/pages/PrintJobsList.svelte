@@ -5,8 +5,12 @@
     import { dashboard } from '@/routes';
     import { PrinterCheck, Trash2 } from '@lucide/svelte';
     import { page, router } from '@inertiajs/svelte';
+    import ShowPrintOTPModal from './Modals/ShowPrintOTPModal.svelte';
 
     let { print_jobs, pagination } = $props();
+    let canShowOTPModal: boolean = $state(false);
+    let selectedPrintJobUuid: string | null = $state(null);
+
     const breadcrumbs: BreadcrumbItem[] = [
         {
             title: 'Dashboard',
@@ -59,6 +63,14 @@
                 'An error occurred while trying to remove the print job files.',
             );
         }
+    };
+
+    const initatePrint = (uuid: string) => {
+        canShowOTPModal = true;
+        selectedPrintJobUuid = uuid;
+        console.log('Initiating print for job UUID:', uuid);
+        console.log('OTP Modal visibility:', canShowOTPModal);
+        console.log('Selected Print Job UUID:', selectedPrintJobUuid);
     };
 </script>
 
@@ -115,6 +127,8 @@
                                         href={'#'}
                                         class="text-blue-700 tooltip tooltip-left"
                                         data-tip="Print the docs"
+                                        onclick={() =>
+                                            initatePrint(print_job.job_uuid)}
                                     >
                                         <PrinterCheck size={18} />
                                     </a>
@@ -136,3 +150,13 @@
         </div>
     </div>
 </AppLayout>
+
+{#if canShowOTPModal}
+    <ShowPrintOTPModal
+        printJobUuid={selectedPrintJobUuid}
+        on:close={() => {
+            canShowOTPModal = false;
+            selectedPrintJobUuid = null;
+        }}
+    />
+{/if}
