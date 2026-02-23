@@ -200,7 +200,7 @@
                     <Loader2 class="h-5 w-5 animate-spin" />
                     Verifying...
                 {:else}
-                    Verify Code
+                    Verify Code & Print
                 {/if}
             </button>
 
