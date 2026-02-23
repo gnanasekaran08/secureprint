@@ -94,7 +94,6 @@
             });
 
             const response = await request.json();
-            const files = response?.data?.files || [];
             console.log('response', response);
 
             if ('error' === response.status) {
@@ -115,7 +114,10 @@
                 'success',
             );
 
-            // initate the files for printing..,.
+            const files = response?.data?.files || [];
+            console.log('files', files);
+
+
         } catch (err) {
             error = 'Something went wrong. Please try again.';
         } finally {
