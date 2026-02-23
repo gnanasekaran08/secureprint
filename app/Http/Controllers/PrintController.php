@@ -23,17 +23,17 @@ class PrintController extends Controller
     /**
      * Show the print upload page.
      */
-    public function index(Request $request, ?string $shopUuid = null)
+    public function print(Request $request, ?string $shop_uuid = null)
     {
         $shop = null;
 
-        if ($shopUuid) {
-            $shop = Shop::where('uuid', $shopUuid)->first();
+        if ($shop_uuid) {
+            $shop = Shop::where('uuid', $shop_uuid)->first();
         }
 
         return Inertia::render('PrintUpload', [
             'shop'     => $shop,
-            'shopUuid' => $shopUuid,
+            'shopUuid' => $shop_uuid,
         ]);
     }
 

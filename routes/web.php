@@ -20,7 +20,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 // Print Routes
 Route::get('scan', [PrintController::class, 'scan'])->name('scan');
-Route::get('print/{shopUuid?}', [PrintController::class, 'index'])->name('print');
+Route::get('print/{shop_uuid?}', [PrintController::class, 'print'])->name('print');
 Route::post('print/upload', [PrintController::class, 'upload'])->name('print.upload');
 Route::post('print/pay', [PrintController::class, 'processPayment'])->name('print.pay');
 Route::post('print/verify-otp', [PrintController::class, 'verifyOtp'])->name('print.verify-otp');

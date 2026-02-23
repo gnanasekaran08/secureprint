@@ -24,6 +24,7 @@ class ShopListController extends Controller
                     'mobile_number'          => $shop->owner->mobile_number ?? null,
                     'created_at'             => $shop->created_at->toDateTimeString(),
                     'today_print_jobs_count' => $shop->today_print_jobs_count,
+                    'qr_code_url'            => route('print', ['shop_uuid' => $shop->uuid]),
                 ];
             });
 
