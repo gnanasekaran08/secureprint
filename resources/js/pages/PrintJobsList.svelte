@@ -3,7 +3,7 @@
     import AppLayout from '@/layouts/AppLayout.svelte';
     import type { BreadcrumbItem } from '@/types';
     import { dashboard } from '@/routes';
-    import { Trash2 } from '@lucide/svelte';
+    import { PrinterCheck, Trash2 } from '@lucide/svelte';
     import { page, router } from '@inertiajs/svelte';
 
     let { print_jobs, pagination } = $props();
@@ -90,7 +90,9 @@
                     {#each print_jobs as print_job, index}
                         <tr>
                             <th>{index + 1}</th>
-                            <td class="text-3md font-semibold">{print_job.print_code}</td>
+                            <td class="text-3md font-semibold"
+                                >{print_job.print_code}</td
+                            >
                             <td>{print_job.shop.name}</td>
                             <td>{print_job.created_at}</td>
                             <td>
@@ -108,15 +110,24 @@
                                 </div>
                             </td>
                             <td>
-                                <a
-                                    href={'#'}
-                                    class="text-red-700 tooltip tooltip-left"
-                                    data-tip="Remove Print Job Files"
-                                    onclick={() =>
-                                        destroyPrintJob(print_job.job_uuid)}
-                                >
-                                    <Trash2 size={18} />
-                                </a>
+                                <div class="flex gap-2">
+                                    <a
+                                        href={'#'}
+                                        class="text-blue-700 tooltip tooltip-left"
+                                        data-tip="Print the docs"
+                                    >
+                                        <PrinterCheck size={18} />
+                                    </a>
+                                    <a
+                                        href={'#'}
+                                        class="text-red-700 tooltip tooltip-left"
+                                        data-tip="Remove Print Job Files"
+                                        onclick={() =>
+                                            destroyPrintJob(print_job.job_uuid)}
+                                    >
+                                        <Trash2 size={18} />
+                                    </a>
+                                </div>
                             </td>
                         </tr>
                     {/each}
