@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Providers;
 
 use Carbon\CarbonImmutable;
@@ -15,7 +14,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        if ("production" === app()->environment()) {
+            $this->app->bind('path.public', function () {
+                return base_path() . '/public_html';
+            });
+        }
     }
 
     /**
@@ -31,20 +34,20 @@ class AppServiceProvider extends ServiceProvider
      */
     protected function configureDefaults(): void
     {
-        Date::use(CarbonImmutable::class);
+        Date::use (CarbonImmutable::class);
 
         DB::prohibitDestructiveCommands(
             app()->isProduction(),
         );
 
-        Password::defaults(fn (): ?Password => app()->isProduction()
-            ? Password::min(12)
+        Password::defaults(fn(): ?Password => app()->isProduction()
+                ? Password::min(12)
                 ->mixedCase()
                 ->letters()
                 ->numbers()
                 ->symbols()
                 ->uncompromised()
-            : null
+                : null
         );
     }
 }
