@@ -76,7 +76,7 @@ class PrintController extends Controller
             'shop_id'         => $shop?->id,
             'job_uuid'        => Str::uuid(),
             'user_id'         => 1,
-            'print_code'      => rand(100000, 999999),
+            'doc_no'          => rand(100000, 999999),
             'status'          => 'pending',
             'total_copies'    => $request->copies,
             'is_color'        => $request->is_color,
@@ -149,6 +149,7 @@ class PrintController extends Controller
                 'message'   => 'Payment successful!',
                 'otp'       => $printJob->otp,
                 'print_job' => $printJob,
+                'doc_no'    => $printJob->doc_no,
             ], 200);
 
         } catch (Exception $e) {

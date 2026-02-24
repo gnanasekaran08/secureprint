@@ -14,7 +14,7 @@ class PrintJob extends Model
     protected $fillable = [
         'shop_id',
         'job_uuid',
-        'print_code',
+        'doc_no',
         'user_id',
         'printer',
         'error_message',

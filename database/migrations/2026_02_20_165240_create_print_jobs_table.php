@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('shop_id')->index();
             $table->uuid('job_uuid')->unique()->index();
-            $table->integer('print_code')->unique()->index();
+            $table->integer('doc_no')->unique()->index();
             $table->unsignedBigInteger('user_id');
             $table->string('printer')->nullable();
             $table->string('error_message')->nullable();
