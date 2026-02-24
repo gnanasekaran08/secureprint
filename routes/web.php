@@ -4,6 +4,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PrintController;
 use App\Http\Controllers\PrintJobListController;
 use App\Http\Controllers\ShopListController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -26,3 +27,28 @@ Route::post('print/pay', [PrintController::class, 'processPayment'])->name('prin
 Route::post('print/verify-otp', [PrintController::class, 'verifyOtp'])->name('print.verify-otp');
 
 require __DIR__ . '/settings.php';
+
+Route::get('cls', function () {
+    Artisan::call('cache:clear');
+    Artisan::call('config:clear');
+    Artisan::call('config:cache');
+    Artisan::call('view:clear');
+    Artisan::call('optimize:clear');
+    $appVersion = app()->version();
+    $phpVersion = phpversion();
+    echo "App version: " . $appVersion;
+    echo "<br>";
+    echo "PHP version: " . $phpVersion;
+    echo "<br>";
+    return "Cache is cleared";
+});
+
+Route::get('symlink', function () {
+    Artisan::call('storage:link');
+    return "Sym link created";
+});
+
+Route::get('migrate-table', function () {
+    Artisan::call('migrate', ['--force' => true]);
+    return "Tables migrated";
+});
