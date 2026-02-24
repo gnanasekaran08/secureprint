@@ -213,7 +213,7 @@
 </AppHead>
 <Toaster />
 <div
-    data-theme="secureprint"
+    data-theme="printsecure"
     class="min-h-screen bg-gradient-to-b from-slate-50 to-white"
 >
     <!-- Header -->
@@ -238,7 +238,7 @@
                 <span
                     class="bg-gradient-to-r from-violet-600 to-indigo-600 bg-clip-text text-lg font-bold text-transparent"
                 >
-                    SecurePrint
+                    PrintSecure
                 </span>
             </a>
             {#if shop}

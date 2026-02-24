@@ -1,6 +1,6 @@
 @import 'tailwindcss';
 @plugin "daisyui" {
-    themes: light --default, dark --prefersdark, secureprint;
+    themes: light --default, dark --prefersdark, printsecure --default;
 }
 @import 'tw-animate-css';
 
@@ -9,8 +9,8 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* SecurePrint Custom Theme - Modern & Vibrant */
-[data-theme="secureprint"] {
+/* PrintSecure Custom Theme - Modern & Vibrant */
+[data-theme="printsecure"] {
     /* Primary - Indigo/Purple */
     --p: 255 90 60;
     --pf: 255 85 55;

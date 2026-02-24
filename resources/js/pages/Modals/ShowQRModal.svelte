@@ -77,11 +77,11 @@
             // Fix bottom corners of header (make them square)
             ctx.fillRect(padding, padding + headerHeight - radius, cardWidth - padding * 2, radius);
 
-            // Header text - "SecurePrint"
+            // Header text - "PrintSecure"
             ctx.fillStyle = '#ffffff';
             ctx.font = 'bold 28px system-ui, -apple-system, sans-serif';
             ctx.textAlign = 'center';
-            ctx.fillText('SecurePrint', cardWidth / 2, padding + 45);
+            ctx.fillText('PrintSecure', cardWidth / 2, padding + 45);
 
             // Tagline
             ctx.font = '14px system-ui, -apple-system, sans-serif';
@@ -205,7 +205,7 @@
             // Website
             ctx.fillStyle = '#8b5cf6';
             ctx.font = 'bold 13px system-ui, -apple-system, sans-serif';
-            ctx.fillText('secureprint.in', cardWidth / 2, footerY + 45);
+            ctx.fillText('printsecure.shop', cardWidth / 2, footerY + 45);
 
             ctx.restore();
 

@@ -112,7 +112,7 @@
     />
 </AppHead>
 
-<div data-theme="secureprint" class="min-h-screen bg-base-100 font-sans">
+<div data-theme="printsecure" class="min-h-screen bg-base-100 font-sans">
     <!-- Animated Background with Patterns -->
     <div class="fixed inset-0 -z-10 overflow-hidden">
         <!-- Gradient Orbs -->
@@ -205,7 +205,7 @@
                 <span
                     class="bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent"
                 >
-                    SecurePrint
+                    PrintSecure
                 </span>
             </a>
         </div>
@@ -705,7 +705,7 @@
                     <span
                         class="bg-gradient-to-r from-violet-600 to-indigo-600 bg-clip-text text-transparent"
                     >
-                        SecurePrint
+                        PrintSecure
                     </span>
                     ?
                 </h2>
@@ -869,7 +869,7 @@
                         </div>
                         <span
                             class="bg-gradient-to-r from-violet-600 to-indigo-600 bg-clip-text text-transparent"
-                            >SecurePrint</span
+                            >PrintSecure</span
                         >
                     </a>
                     <p class="max-w-sm text-slate-600">
@@ -927,7 +927,7 @@
                 class="mt-12 border-t border-slate-200 pt-8 text-center text-sm text-slate-500"
             >
                 <p>
-                    &copy; {new Date().getFullYear()} SecurePrint. All rights reserved.
+                    &copy; {new Date().getFullYear()} PrintSecure. All rights reserved.
                 </p>
             </div>
         </div>

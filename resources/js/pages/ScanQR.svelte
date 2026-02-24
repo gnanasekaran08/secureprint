@@ -163,7 +163,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
 </AppHead>
 
-<div data-theme="secureprint" class="flex min-h-screen flex-col bg-black">
+<div data-theme="printsecure" class="flex min-h-screen flex-col bg-black">
     <!-- Header -->
     <header class="sticky top-0 z-50 bg-black/80 px-4 py-3 backdrop-blur-xl">
         <div class="mx-auto flex max-w-lg items-center gap-3">
@@ -177,7 +177,7 @@
                     <Printer class="h-4 w-4 text-white" />
                 </div>
                 <span class="bg-gradient-to-r from-violet-400 to-indigo-400 bg-clip-text text-lg font-bold text-transparent">
-                    SecurePrint
+                    PrintSecure
                 </span>
             </div>
         </div>
@@ -302,7 +302,7 @@
     <!-- Footer hint -->
     <footer class="px-4 pb-8 pt-4 text-center">
         <p class="text-xs text-slate-600">
-            Scan the QR code displayed at any SecurePrint partner shop
+            Scan the QR code displayed at any PrintSecure partner shop
         </p>
     </footer>
 </div>
