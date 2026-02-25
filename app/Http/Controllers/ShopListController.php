@@ -12,9 +12,10 @@ class ShopListController extends Controller
         try {
             $shops = Shop::query()
                 ->when("shop" === auth()->user()->type, fn($query) => $query->where('user_id', auth()->id()))
-                ->withCount('today_print_jobs')->orderBy('created_at', 'desc')->paginate(25);
+                ->withCount('today_print_jobs')->orderBy('created_at', 'desc')
+                ->paginate(10);
 
-            $formattedShops = $shops->getCollection()->transform(function ($shop) {
+            $shops->getCollection()->transform(function ($shop) {
                 return [
                     'id'                     => $shop->id,
                     'shop_uuid'              => $shop->uuid,
@@ -27,17 +28,8 @@ class ShopListController extends Controller
                     'qr_code_url'            => route('print', ['shop_uuid' => $shop->uuid]),
                 ];
             });
-
             return inertia('Shops', [
-                'shops'      => $formattedShops,
-                'pagination' => [
-                    'total'        => $shops->total(),
-                    'per_page'     => $shops->perPage(),
-                    'current_page' => $shops->currentPage(),
-                    'last_page'    => $shops->lastPage(),
-                    'from'         => $shops->firstItem(),
-                    'to'           => $shops->lastItem(),
-                ],
+                'shops' => $shops->toArray(),
             ]);
         } catch (Exception $e) {
             return redirect()->back()->withErrors(['error' => 'Failed to load shops. Please try again later. ERROR: ' . $e->getMessage()]);

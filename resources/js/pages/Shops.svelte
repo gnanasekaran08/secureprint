@@ -6,6 +6,7 @@
     import { dashboard } from '@/routes';
     import { QrCode } from '@lucide/svelte';
     import ShowQRModal from './Modals/ShowQRModal.svelte';
+    import Pagination from '@/components/Pagination.svelte';
 
     let { shops, pagination } = $props();
     let selectedShop = $state(null);
@@ -46,14 +47,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {#if shops.length === 0}
+                    {#if shops?.data?.length === 0}
                         <tr>
                             <td colspan="5" class="text-center">
                                 No shops found.
                             </td>
                         </tr>
                     {/if}
-                    {#each shops as shop, index}
+                    {#each shops?.data || [] as shop, index}
                         <tr>
                             <th>{index + 1}</th>
                             <td>{shop.name}</td>
@@ -77,6 +78,13 @@
                             </td>
                         </tr>
                     {/each}
+                    {#if shops?.last_page > 1}
+                        <tr>
+                            <td colspan={7} class="text-end">
+                                <Pagination links={shops?.links || []} />
+                            </td>
+                        </tr>
+                    {/if}
                 </tbody>
             </table>
         </div>
