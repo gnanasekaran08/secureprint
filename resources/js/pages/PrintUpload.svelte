@@ -246,6 +246,15 @@
             console.log('Delete print job request completed');
         }
     };
+
+    const steps = [
+        { label: 'Go to the print shop' },
+        { label: 'Share your Document No to find your uploaded documents' },
+        {
+            label: 'Share your Documents Printing Code (4 digits code) to the shop staff to print your documents.',
+        },
+        { label: 'Collect your printed documents' },
+    ];
 </script>
 
 <AppHead title="Print Documents">
@@ -272,6 +281,7 @@
                     <ArrowLeft class="h-5 w-5" />
                 </button>
             {/if}
+
             <a href="/" class="flex items-center gap-2">
                 <div
                     class="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-violet-500 to-indigo-600 shadow-md"
@@ -781,7 +791,6 @@
                         or print them until you show this code.
                     </p>
                 </div>
-
                 <div
                     class="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-left text-sm"
                 >
@@ -789,40 +798,14 @@
                         What's Next?
                     </h4>
                     <ul class="space-y-2 text-slate-600">
-                        <li class="flex items-start gap-2">
-                            <span
-                                class="mt-0.5 h-5 w-5 rounded-full bg-violet-100 text-center text-xs font-bold leading-5 text-violet-600"
-                                >1</span
-                            >
-                            <span>Go to the print shop</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span
-                                class="mt-0.5 h-5 w-5 rounded-full bg-violet-100 text-center text-xs font-bold leading-5 text-violet-600"
-                                >2</span
-                            >
-                            <span
-                                >Share your Document No to find your uploaded
-                                documents</span
-                            >
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span
-                                class="mt-0.5 h-5 w-5 rounded-full bg-violet-100 text-center text-xs font-bold leading-5 text-violet-600"
-                                >3</span
-                            >
-                            <span
-                                >Share your Documents Printing Code (4 digits
-                                code) to the shop staff to print your documents.</span
-                            >
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span
-                                class="mt-0.5 h-5 w-5 rounded-full bg-violet-100 text-center text-xs font-bold leading-5 text-violet-600"
-                                >4</span
-                            >
-                            <span>Collect your printed documents</span>
-                        </li>
+                        {#each steps as step, index}
+                            <li class="flex gap-3">
+                                <div class="badge p-2 badge-primary badge-soft">
+                                    {index + 1}
+                                </div>
+                                <div class="text-wrap">{step.label}</div>
+                            </li>
+                        {/each}
                     </ul>
                 </div>
 
