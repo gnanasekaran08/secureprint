@@ -1,13 +1,13 @@
 <script lang="ts">
     import AppHead from '@/components/AppHead.svelte';
-    import PlaceholderPattern from '@/components/PlaceholderPattern.svelte';
     import AppLayout from '@/layouts/AppLayout.svelte';
     import type { BreadcrumbItem } from '@/types';
     import { dashboard } from '@/routes';
     import { QrCode } from '@lucide/svelte';
     import ShowQRModal from './Modals/ShowQRModal.svelte';
+    import Pagination from '@/components/Pagination.svelte';
 
-    let { shops, pagination } = $props();
+    let { shops } = $props();
     let selectedShop = $state(null);
 
     const breadcrumbs: BreadcrumbItem[] = [
@@ -46,14 +46,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {#if shops.length === 0}
+                    {#if shops?.data?.length === 0}
                         <tr>
                             <td colspan="5" class="text-center">
                                 No shops found.
                             </td>
                         </tr>
                     {/if}
-                    {#each shops as shop, index}
+                    {#each shops?.data || [] as shop, index}
                         <tr>
                             <th>{index + 1}</th>
                             <td>{shop.name}</td>
@@ -77,6 +77,13 @@
                             </td>
                         </tr>
                     {/each}
+                    {#if shops?.last_page > 1}
+                        <tr>
+                            <td colspan={7} class="text-end">
+                                <Pagination links={shops?.links || []} />
+                            </td>
+                        </tr>
+                    {/if}
                 </tbody>
             </table>
         </div>

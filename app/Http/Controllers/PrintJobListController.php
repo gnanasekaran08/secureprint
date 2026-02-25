@@ -17,18 +17,12 @@ class PrintJobListController extends Controller
                         $q->where('user_id', auth()->id());
                     });
                 })
-                ->with('shop', 'attachments')->orderBy('created_at', 'desc')->paginate(25);
+                ->with('shop', 'attachments')
+                ->orderBy('created_at', 'desc')
+                ->paginate(20);
 
             return inertia('PrintJobsList', [
-                'print_jobs' => $printJobs->items(),
-                'pagination' => [
-                    'total'        => $printJobs->total(),
-                    'per_page'     => $printJobs->perPage(),
-                    'current_page' => $printJobs->currentPage(),
-                    'last_page'    => $printJobs->lastPage(),
-                    'from'         => $printJobs->firstItem(),
-                    'to'           => $printJobs->lastItem(),
-                ],
+                'print_jobs' => $printJobs->toArray(),
             ]);
         } catch (Exception $e) {
             return redirect()->back()->withErrors(['error' => 'Failed to load shops. Please try again later. ERROR: ' . $e->getMessage()]);

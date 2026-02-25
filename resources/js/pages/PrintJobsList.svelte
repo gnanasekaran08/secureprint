@@ -7,8 +7,9 @@
     import { page, router } from '@inertiajs/svelte';
     import ShowPrintOTPModal from './Modals/ShowPrintOTPModal.svelte';
     import toast, { Toaster } from 'svelte-french-toast';
+    import Pagination from '@/components/Pagination.svelte';
 
-    let { print_jobs, pagination } = $props();
+    let { print_jobs } = $props();
     let canShowOTPModal: boolean = $state(false);
     let selectedPrintJobUuid: string | null = $state(null);
 
@@ -94,14 +95,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {#if print_jobs.length === 0}
+                    {#if print_jobs?.data?.length === 0}
                         <tr>
                             <td colspan="6" class="text-center">
                                 No records found.
                             </td>
                         </tr>
                     {/if}
-                    {#each print_jobs as print_job, index}
+                    {#each print_jobs?.data || [] as print_job, index}
                         <tr>
                             <th>{index + 1}</th>
                             <td class="text-3md font-semibold"
@@ -147,6 +148,13 @@
                             </td>
                         </tr>
                     {/each}
+                    {#if print_jobs?.last_page > 1}
+                        <tr>
+                            <td colspan={6} class="text-end">
+                                <Pagination links={print_jobs?.links || []} />
+                            </td>
+                        </tr>
+                    {/if}
                 </tbody>
             </table>
         </div>
