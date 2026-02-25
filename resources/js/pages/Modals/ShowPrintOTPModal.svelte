@@ -219,7 +219,7 @@
                         <li
                             class="flex items-center gap-3 rounded-lg border p-3"
                         >
-                            <div>
+                            <div class="flex gap-1">
                                 <Files class="h-5 w-5 text-slate-500" />
                                 <span
                                     class="text-sm text-slate-600 text-truncate block max-w-xs"
