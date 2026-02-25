@@ -1,8 +1,9 @@
 <script lang="ts">
-    import { Download, X } from 'lucide-svelte';
+    import { page } from '@inertiajs/svelte';
     import { createQrPngDataUrl } from '@svelte-put/qr';
-    import { onMount } from 'svelte';
     import QR from '@svelte-put/qr/svg/QR.svelte';
+    import { Download, X } from 'lucide-svelte';
+    import { onMount } from 'svelte';
 
     let { shop, onClose } = $props();
 
@@ -259,6 +260,10 @@
                     Download QR
                 {/if}
             </button>
+
+            {#if $page.props.app_env === 'local'}
+               <div class="my-2">QR URL: <code class="break-all">{shop.qr_code_url}</code></div>
+            {/if}
         </div>
     </div>
     <form method="dialog" class="modal-backdrop">

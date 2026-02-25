@@ -1,5 +1,6 @@
 <script lang="ts">
     import { Link, page } from '@inertiajs/svelte';
+    import { Printer } from 'lucide-svelte';
     import BookOpen from 'lucide-svelte/icons/book-open';
     import Folder from 'lucide-svelte/icons/folder';
     import LayoutGrid from 'lucide-svelte/icons/layout-grid';
@@ -18,9 +19,8 @@
         SidebarMenuItem,
     } from '@/components/ui/sidebar';
     import { toUrl } from '@/lib/utils';
-    import type { NavItem } from '@/types';
     import { dashboard, printJobs, shops } from '@/routes';
-    import { Printer } from 'lucide-svelte';
+    import type { NavItem } from '@/types';
 
     let {
         children,

@@ -1,7 +1,5 @@
 <script lang="ts">
     import { router } from '@inertiajs/svelte';
-    import AppHead from '@/components/AppHead.svelte';
-    import { onMount, onDestroy } from 'svelte';
     import { Html5Qrcode, Html5QrcodeScannerState } from 'html5-qrcode';
     import {
         QrCode,
@@ -15,6 +13,8 @@
         Flashlight,
         Upload,
     } from 'lucide-svelte';
+    import { onMount, onDestroy } from 'svelte';
+    import AppHead from '@/components/AppHead.svelte';
 
     // State
     let scannerElement: HTMLDivElement | null = $state(null);

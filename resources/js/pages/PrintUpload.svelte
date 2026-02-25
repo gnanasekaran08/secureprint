@@ -1,7 +1,5 @@
 <script lang="ts">
     import { page, router } from '@inertiajs/svelte';
-    import AppHead from '@/components/AppHead.svelte';
-    import toast, { Toaster } from 'svelte-french-toast';
 
     import {
         Upload,
@@ -26,6 +24,8 @@
         IndianRupee,
     } from 'lucide-svelte';
     import { onMount } from 'svelte';
+    import toast, { Toaster } from 'svelte-french-toast';
+    import AppHead from '@/components/AppHead.svelte';
 
     let {
         shop = null,

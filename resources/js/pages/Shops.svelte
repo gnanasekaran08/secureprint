@@ -1,11 +1,11 @@
 <script lang="ts">
-    import AppHead from '@/components/AppHead.svelte';
-    import AppLayout from '@/layouts/AppLayout.svelte';
-    import type { BreadcrumbItem } from '@/types';
-    import { dashboard } from '@/routes';
     import { QrCode } from '@lucide/svelte';
-    import ShowQRModal from './Modals/ShowQRModal.svelte';
+    import AppHead from '@/components/AppHead.svelte';
     import Pagination from '@/components/Pagination.svelte';
+    import AppLayout from '@/layouts/AppLayout.svelte';
+    import { dashboard } from '@/routes';
+    import type { BreadcrumbItem } from '@/types';
+    import ShowQRModal from './Modals/ShowQRModal.svelte';
 
     let { shops } = $props();
     let selectedShop = $state(null);

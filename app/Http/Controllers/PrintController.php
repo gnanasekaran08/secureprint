@@ -90,7 +90,7 @@ class PrintController extends Controller
         // Store files
         foreach ($request->file('files') as $file) {
             $filename = $file->getClientOriginalName();
-            $filepath = $file->store('print-jobs/' . $printJob->job_uuid, 'local');
+            $filepath = $file->store('print-jobs/' . $printJob->job_uuid, 'public');
 
             // Estimate pages (simplified - in real app you'd parse PDF)
             $pages       = $this->estimatePages($file);
@@ -237,7 +237,7 @@ class PrintController extends Controller
                 ->map(function ($attachment) {
                     return [
                         'filename' => $attachment->filename,
-                        'filepath' => asset('storage' . $attachment->filepath),
+                        'filepath' => asset('storage/' . $attachment->filepath),
                     ];
                 });
 

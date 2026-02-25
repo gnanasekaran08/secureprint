@@ -1,7 +1,7 @@
 <script lang="ts">
-    import { onMount } from 'svelte';
-    import { CheckCircle, Files, Loader2, Printer, X } from 'lucide-svelte';
     import { page } from '@inertiajs/svelte';
+    import { CheckCircle, Files, Loader2, Printer, X } from 'lucide-svelte';
+    import { onMount } from 'svelte';
 
     let { printJobUuid, onClose, triggerToast } = $props();
 
@@ -122,6 +122,37 @@
             isVerifying = false;
         }
     }
+
+    const printFile = (file: any) => {
+        const iframe = document.createElement('iframe');
+        iframe.style.position = 'fixed';
+        iframe.style.right = '0';
+        iframe.style.bottom = '0';
+        iframe.style.width = '0';
+        iframe.style.height = '0';
+        iframe.style.border = 'none';
+        iframe.src = file.filepath;
+
+        iframe.onload = () => {
+            try {
+                iframe.contentWindow?.focus();
+                iframe.contentWindow?.print();
+            } catch {
+                const printWindow = window.open(file.filepath, '_blank');
+                if (printWindow) {
+                    printWindow.onload = () => {
+                        printWindow.print();
+                    };
+                }
+            }
+
+            setTimeout(() => {
+                document.body.removeChild(iframe);
+            }, 1000);
+        };
+
+        document.body.appendChild(iframe);
+    };
 </script>
 
 <dialog class="modal modal-open">
@@ -219,7 +250,7 @@
                         <li
                             class="flex items-center gap-3 rounded-lg border p-3"
                         >
-                            <div>
+                            <div class="flex gap-1">
                                 <Files class="h-5 w-5 text-slate-500" />
                                 <span
                                     class="text-sm text-slate-600 text-truncate block max-w-xs"
@@ -230,9 +261,7 @@
                             <a
                                 href={"javascript:void(0)"}
                                 class="ml-auto text-sm text-blue-600 hover:underline"
-                                onclick={() => {
-                                    window.open(file.filepath, '_blank');
-                                }}
+                                onclick={() => printFile(file)}
                             >
                                 Print
                             </a>
