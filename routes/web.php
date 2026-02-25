@@ -25,6 +25,7 @@ Route::get('print/{shop_uuid?}', [PrintController::class, 'print'])->name('print
 Route::post('print/upload', [PrintController::class, 'upload'])->name('print.upload');
 Route::post('print/pay', [PrintController::class, 'processPayment'])->name('print.pay');
 Route::post('print/verify-otp', [PrintController::class, 'verifyOtp'])->name('print.verify-otp');
+Route::post('delete-print-job', [PrintController::class, 'deletePrintJobByDocNo'])->name('print.delete-job-by-docno');
 
 require __DIR__ . '/settings.php';
 

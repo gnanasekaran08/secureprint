@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\PrintJob;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class PrintJobListController extends Controller
 {
@@ -18,6 +18,7 @@ class PrintJobListController extends Controller
                     });
                 })
                 ->with('shop', 'attachments')
+                ->whereNull('removed_at')
                 ->orderBy('created_at', 'desc')
                 ->paginate(20);
 
@@ -38,14 +39,12 @@ class PrintJobListController extends Controller
                 return response()->json(['status' => 'error', 'message' => 'No files found for this print job.'], 404);
             }
 
-            foreach ($printJob->attachments as $attachment) {
-                Log::info('Deleting file for attachment', ['attachment_id' => $attachment->id, 'filepath' => $attachment->filepath]);
-                $attachment->deleteFile();
-                // $attachment->delete();
+            if (Storage::disk('public')->exists('print-jobs/' . $printJob->job_uuid)) {
+                Storage::disk('public')->deleteDirectory('print-jobs/' . $printJob->job_uuid);
             }
+
             $printJob->removed_at = now();
             $printJob->save();
-            // $printJob->delete();
 
             return response()->json(['status' => 'success', 'message' => 'Print job files removed successfully.'], 200);
         } catch (Exception $e) {
