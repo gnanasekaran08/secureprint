@@ -1,9 +1,9 @@
 <script lang="ts">
-    import { Download, X } from 'lucide-svelte';
-    import { createQrPngDataUrl } from '@svelte-put/qr';
-    import { onMount } from 'svelte';
-    import QR from '@svelte-put/qr/svg/QR.svelte';
     import { page } from '@inertiajs/svelte';
+    import { createQrPngDataUrl } from '@svelte-put/qr';
+    import QR from '@svelte-put/qr/svg/QR.svelte';
+    import { Download, X } from 'lucide-svelte';
+    import { onMount } from 'svelte';
 
     let { shop, onClose } = $props();
 

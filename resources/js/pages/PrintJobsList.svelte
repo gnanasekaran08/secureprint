@@ -1,13 +1,13 @@
 <script lang="ts">
-    import AppHead from '@/components/AppHead.svelte';
-    import AppLayout from '@/layouts/AppLayout.svelte';
-    import type { BreadcrumbItem } from '@/types';
-    import { dashboard } from '@/routes';
-    import { PrinterCheck, Trash2 } from '@lucide/svelte';
     import { page, router } from '@inertiajs/svelte';
-    import ShowPrintOTPModal from './Modals/ShowPrintOTPModal.svelte';
+    import { PrinterCheck, Trash2 } from '@lucide/svelte';
     import toast, { Toaster } from 'svelte-french-toast';
+    import AppHead from '@/components/AppHead.svelte';
     import Pagination from '@/components/Pagination.svelte';
+    import AppLayout from '@/layouts/AppLayout.svelte';
+    import { dashboard } from '@/routes';
+    import type { BreadcrumbItem } from '@/types';
+    import ShowPrintOTPModal from './Modals/ShowPrintOTPModal.svelte';
 
     let { print_jobs } = $props();
     let canShowOTPModal: boolean = $state(false);
