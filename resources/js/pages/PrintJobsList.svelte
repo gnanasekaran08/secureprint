@@ -151,7 +151,10 @@
                     {#if print_jobs?.last_page > 1}
                         <tr>
                             <td colspan={6} class="text-end">
-                                <Pagination links={print_jobs?.links || []} />
+                                <Pagination
+                                    links={print_jobs?.links || []}
+                                    total={print_jobs?.total || 0}
+                                />
                             </td>
                         </tr>
                     {/if}

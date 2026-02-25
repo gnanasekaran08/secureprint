@@ -22,6 +22,7 @@
         ChevronRight,
         FileStack,
         IndianRupee,
+        AlertTriangle,
     } from 'lucide-svelte';
     import { onMount } from 'svelte';
     import toast, { Toaster } from 'svelte-french-toast';
@@ -202,6 +203,48 @@
     const goBack = () => {
         if (currentStep === 'settings') currentStep = 'upload';
         else if (currentStep === 'checkout') currentStep = 'settings';
+    };
+
+    const deleteThisJobFile = async () => {
+        try {
+            const response = await fetch('/delete-print-job', {
+                method: 'POST',
+                body: JSON.stringify({
+                    doc_no: printDocumentNo,
+                }),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': $page.props.csrf_token,
+                    Accept: 'application/json',
+                },
+            });
+
+            const data = await response.json();
+            const status = data.status || 'error';
+
+            if ('success' === status) {
+                toast.success('Files are deleted successfully!', {
+                    duration: 5000,
+                    position: 'top-center',
+                });
+                return 0;
+            }
+            toast.error('Something went wrong. Please try again.', {
+                duration: 5000,
+                position: 'top-center',
+            });
+        } catch (err) {
+            console.error('Payment failed:', err);
+            toast.error(
+                'Failed to process payment. Please try again. ERROR : ' + err,
+                {
+                    duration: 5000,
+                    position: 'top-center',
+                },
+            );
+        } finally {
+            console.log('Delete print job request completed');
+        }
     };
 </script>
 
@@ -695,7 +738,11 @@
                 <div
                     class="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-left text-sm"
                 >
-                    <p class="mb-2 text-sm font-semibold text-slate-800 text-center">Your Document No</p>
+                    <p
+                        class="mb-2 text-sm font-semibold text-slate-800 text-center"
+                    >
+                        Your Document No
+                    </p>
 
                     <div class="flex justify-center gap-3">
                         {#each printDocumentNo?.toString() || '----' as digit}
@@ -730,7 +777,8 @@
                     </div>
                     <p class="mt-4 text-sm text-white/80">
                         Show this code at the shop to print and collect your
-                        printed documents. They can't able to view the files or print, until you show this code to them.
+                        printed documents. They won't be able to view the files
+                        or print them until you show this code.
                     </p>
                 </div>
 
@@ -753,18 +801,52 @@
                                 class="mt-0.5 h-5 w-5 rounded-full bg-violet-100 text-center text-xs font-bold leading-5 text-violet-600"
                                 >2</span
                             >
-                            <span>Show your collection code</span>
+                            <span
+                                >Share your Document No to find your uploaded
+                                documents</span
+                            >
                         </li>
                         <li class="flex items-start gap-2">
                             <span
                                 class="mt-0.5 h-5 w-5 rounded-full bg-violet-100 text-center text-xs font-bold leading-5 text-violet-600"
                                 >3</span
                             >
+                            <span
+                                >Share your Documents Printing Code (4 digits
+                                code) to the shop staff to print your documents.</span
+                            >
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span
+                                class="mt-0.5 h-5 w-5 rounded-full bg-violet-100 text-center text-xs font-bold leading-5 text-violet-600"
+                                >4</span
+                            >
                             <span>Collect your printed documents</span>
                         </li>
                     </ul>
                 </div>
 
+                <div
+                    class="rounded-2xl border border-red-200 bg-red-50 p-4 text-left text-sm text-red-700 shadow-sm"
+                >
+                    <div class="flex items-center gap-3">
+                        <AlertTriangle class="h-5 w-5 text-red-500" />
+                        <h4 class="font-semibold text-red-800">Important</h4>
+                    </div>
+                    <p class="mt-2 text-sm text-red-700">
+                        If you have collected the documents, Please delete the
+                        job to free up space.
+                    </p>
+                    <a
+                        href={'javascript:void(0);'}
+                        class="btn btn-lg w-full shadow-lg bg-red-700 text-white my-2"
+                        onclick={() => deleteThisJobFile()}
+                    >
+                        Yes, delete it.
+                    </a>
+                </div>
+
+                <!--  -->
                 <div class="space-y-3">
                     <a
                         href="/"

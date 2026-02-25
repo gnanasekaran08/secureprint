@@ -7,6 +7,7 @@ use App\Models\Shop;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
 
@@ -255,6 +256,50 @@ class PrintController extends Controller
             return response()->json([
                 'status'  => 'error',
                 'message' => 'An error occurred while verifying OTP. Please try again. ERROR: ' . $e->getMessage(),
+            ], 500);
+        }
+
+    }
+
+    public function deletePrintJobByDocNo(Request $request)
+    {
+        $validator = $request->validate([
+            'doc_no' => 'required|integer',
+        ]);
+
+        if (! $validator) {
+            return response()->json([
+                'status'  => 'error',
+                'message' => 'Validation failed. Please provide a valid doc_no.',
+            ], 400);
+        }
+
+        $printJob = PrintJob::where('doc_no', $request->doc_no)->first();
+
+        if (! $printJob) {
+            return response()->json([
+                'status'  => 'error',
+                'message' => 'Print job not found.',
+            ], 404);
+        }
+
+        try {
+            if (Storage::disk('public')->exists('print-jobs/' . $printJob->job_uuid)) {
+                Storage::disk('public')->deleteDirectory('print-jobs/' . $printJob->job_uuid);
+            }
+
+            $printJob->removed_at = now();
+            $printJob->save();
+
+            return response()->json([
+                'status'  => 'success',
+                'message' => 'Print job and associated files deleted successfully.',
+            ]);
+
+        } catch (Exception $e) {
+            return response()->json([
+                'status'  => 'error',
+                'message' => 'An error occurred while deleting the print job. Please try again. ERROR: ' . $e->getMessage(),
             ], 500);
         }
 

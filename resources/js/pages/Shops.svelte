@@ -80,7 +80,10 @@
                     {#if shops?.last_page > 1}
                         <tr>
                             <td colspan={7} class="text-end">
-                                <Pagination links={shops?.links || []} />
+                                <Pagination
+                                    links={shops?.links || []}
+                                    total={shops?.total || 0}
+                                />
                             </td>
                         </tr>
                     {/if}
