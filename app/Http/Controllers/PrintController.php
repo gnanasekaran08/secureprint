@@ -239,6 +239,7 @@ class PrintController extends Controller
                     return [
                         'filename' => $attachment->filename,
                         'filepath' => asset('storage/' . $attachment->filepath),
+                        'filetype' => $attachment->filetype,
                     ];
                 });
 
