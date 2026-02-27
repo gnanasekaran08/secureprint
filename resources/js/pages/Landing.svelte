@@ -254,10 +254,7 @@
                 >
                     Login
                 </Link>
-                <Link
-                    href="/register"
-                    class="btn btn-primary font-medium"
-                >
+                <Link href="/register" class="btn btn-primary font-medium">
                     <Store class="h-4 w-4" />
                     Shop Owner? Register
                 </Link>
@@ -851,19 +848,21 @@
                 </div>
 
                 <div class="relative text-center">
-                    <h2 class="mb-6 text-4xl font-bold text-white lg:text-5xl">
-                        Ready to Print Anonymously?
-                    </h2>
+                    <h2
+                        class="mb-6 text-4xl font-bold text-white lg:text-5xl"
+                    >Partner With Us</h2>
                     <p class="mx-auto mb-10 max-w-xl text-lg text-white/80">
-                        No sign-up. No personal data. Just upload, pay, and
-                        collect your prints.
+                        Join our growing network of print shops and offer your
+                        customers a seamless, secure printing experience. Zero
+                        sign-up friction for users means more footfall and
+                        happier customers for you.
                     </p>
                     <div class="flex justify-center">
                         <Link
-                            href={toUrl(print())}
+                            href={'/register'}
                             class="btn btn-lg bg-white text-violet-700 shadow-xl hover:bg-slate-100"
                         >
-                            Start Printing Now
+                            Register your shop now!
                         </Link>
                     </div>
                 </div>
