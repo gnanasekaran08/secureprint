@@ -19,6 +19,7 @@
     import { toUrl } from '@/lib/utils';
     import { dashboard, print } from '@/routes';
 
+    let { data } = $props();
     const auth = $derived($page.props.auth);
 
     const features = [
@@ -92,10 +93,18 @@
     ];
 
     const stats = [
-        { value: '500+', label: 'Partner Shops', icon: Store },
-        { value: '1M+', label: 'Documents Printed', icon: FileText },
-        { value: 'Zero', label: 'Data Collected', icon: EyeOff },
-        { value: 'No', label: 'Sign-up Needed', icon: UserX },
+        {
+            value: data?.shops_count,
+            label: 'Partner Shops',
+            icon: Store,
+        },
+        {
+            value: data?.prints_count,
+            label: 'Documents Printed',
+            icon: FileText,
+        },
+        { value: '0', label: 'Data Collected', icon: EyeOff },
+        { value: 'No', label: 'Sign-up Needed for users', icon: UserX },
     ];
 </script>
 
