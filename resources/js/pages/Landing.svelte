@@ -247,13 +247,21 @@
                 >
                     Dashboard
                 </Link>
+            {:else}
+                <Link
+                    href="/login"
+                    class="btn btn-ghost font-medium text-base-content/70 hover:bg-violet-500/10 hover:text-violet-600"
+                >
+                    Login
+                </Link>
+                <Link
+                    href="/register"
+                    class="btn btn-primary font-medium"
+                >
+                    <Store class="h-4 w-4" />
+                    Shop Owner? Register
+                </Link>
             {/if}
-            <Link
-                href={toUrl(print())}
-                class="btn bg-gradient-to-r from-violet-500 to-indigo-600 text-white shadow-lg shadow-violet-500/30 hover:shadow-xl hover:shadow-violet-500/40"
-            >
-                Start Printing
-            </Link>
         </div>
     </nav>
 
@@ -628,7 +636,7 @@
                         <QrCode class="h-5 w-5" />
                         Scan QR Code
                     </Link>
-                    <Link
+                    <!-- <Link
                         href={toUrl(print())}
                         class="btn btn-lg gap-2 border-2 border-violet-200 bg-white/80 text-violet-600 backdrop-blur-sm transition-all duration-300 hover:border-violet-300 hover:bg-violet-50 hover:shadow-lg"
                     >
@@ -636,7 +644,7 @@
                         <ArrowRight
                             class="h-5 w-5 transition-transform group-hover:translate-x-1"
                         />
-                    </Link>
+                    </Link> -->
                 </div>
 
                 <!-- Trust indicators -->
