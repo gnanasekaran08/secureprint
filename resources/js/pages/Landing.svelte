@@ -19,6 +19,7 @@
     import { toUrl } from '@/lib/utils';
     import { dashboard, print } from '@/routes';
 
+    // state_referenced_locally
     let { data } = $props();
     const auth = $derived($page.props.auth);
 
@@ -910,21 +911,21 @@
                     <ul class="space-y-3 text-slate-600">
                         <li>
                             <a
-                                href="javascript:void(0);"
+                                href={'javascript:void(0);'}
                                 class="transition-colors hover:text-violet-600"
                                 >Help Center</a
                             >
                         </li>
                         <li>
                             <a
-                                href="javascript:void(0);"
+                                href={'javascript:void(0);'}
                                 class="transition-colors hover:text-violet-600"
                                 >Contact Us</a
                             >
                         </li>
                         <li>
                             <a
-                                href="javascript:void(0);"
+                                href={'javascript:void(0);'}
                                 class="transition-colors hover:text-violet-600"
                                 >Privacy Policy</a
                             >
