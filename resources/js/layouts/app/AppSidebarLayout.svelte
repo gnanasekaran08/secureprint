@@ -9,16 +9,18 @@
     let {
         breadcrumbs = [],
         children,
+        pageActions,
     }: {
         breadcrumbs?: BreadcrumbItem[];
         children?: Snippet;
+        pageActions?: Snippet;
     } = $props();
 </script>
 
 <AppShell variant="sidebar">
     <AppSidebar />
     <AppContent variant="sidebar" class="overflow-x-hidden">
-        <AppSidebarHeader {breadcrumbs} />
+        <AppSidebarHeader {breadcrumbs} {pageActions} />
         {@render children?.()}
     </AppContent>
 </AppShell>

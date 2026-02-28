@@ -1,11 +1,12 @@
 <script lang="ts">
-    import { QrCode } from '@lucide/svelte';
+    import { Plus, QrCode } from '@lucide/svelte';
     import AppHead from '@/components/AppHead.svelte';
     import Pagination from '@/components/Pagination.svelte';
     import AppLayout from '@/layouts/AppLayout.svelte';
     import { dashboard } from '@/routes';
     import type { BreadcrumbItem } from '@/types';
     import ShowQRModal from './Modals/ShowQRModal.svelte';
+    import { PlusSquare } from 'lucide-svelte';
 
     let { shops } = $props();
     let selectedShop = $state(null);
@@ -30,6 +31,9 @@
 <AppHead title="Shops List" />
 
 <AppLayout {breadcrumbs}>
+    {#snippet pageActions()}
+        <button class="btn"><PlusSquare /> Add Shop</button>
+    {/snippet}
     <div class="h-full overflow-x-auto rounded-xl p-4">
         <div class="overflow-x-auto">
             <table class="table table-zebra table-compact w-full table-sm">

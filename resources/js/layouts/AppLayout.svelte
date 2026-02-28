@@ -6,12 +6,14 @@
     let {
         breadcrumbs = [],
         children,
+        pageActions,
     }: {
         breadcrumbs?: BreadcrumbItem[];
         children?: Snippet;
+        pageActions?: Snippet;
     } = $props();
 </script>
 
-<AppLayout {breadcrumbs}>
+<AppLayout {breadcrumbs} {pageActions}>
     {@render children?.()}
 </AppLayout>
