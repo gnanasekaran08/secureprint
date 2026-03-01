@@ -7,9 +7,11 @@
     import type { BreadcrumbItem } from '@/types';
     import ShowQRModal from './Modals/ShowQRModal.svelte';
     import { PlusSquare } from 'lucide-svelte';
+    import ManageShopModal from './Modals/ManageShopModal.svelte';
 
     let { shops } = $props();
     let selectedShop = $state(null);
+    let showAddShopModal = $state(false);
 
     const breadcrumbs: BreadcrumbItem[] = [
         {
@@ -32,7 +34,13 @@
 
 <AppLayout {breadcrumbs}>
     {#snippet pageActions()}
-        <button class="btn"><PlusSquare /> Add Shop</button>
+        <button
+            class="btn"
+            onclick={() => {
+                showAddShopModal = !showAddShopModal;
+            }}
+            ><PlusSquare /> Add Entity
+        </button>
     {/snippet}
     <div class="h-full overflow-x-auto rounded-xl p-4">
         <div class="overflow-x-auto">
@@ -99,4 +107,13 @@
 
 {#if selectedShop}
     <ShowQRModal shop={selectedShop} onClose={() => (selectedShop = null)} />
+{/if}
+
+{#if showAddShopModal}
+    <ManageShopModal
+        shop={null}
+        onClose={() => {
+            showAddShopModal = false;
+        }}
+    />
 {/if}
