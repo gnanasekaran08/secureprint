@@ -1,6 +1,7 @@
 <script lang="ts">
     import { page } from '@inertiajs/svelte';
     import { CheckCircle, Files, Loader2, Printer, X } from 'lucide-svelte';
+    import mammoth from 'mammoth';
     import { onMount } from 'svelte';
 
     let { printJobUuid, onClose, triggerToast } = $props();
@@ -11,6 +12,7 @@
     let isVerified = $state(false);
     let error = $state<string | null>(null);
     let files = $state<any[]>([]);
+    let isPrinting = $state<string | null>(null);
 
     const otp = $derived(otpDigits.join(''));
     const isComplete = $derived(otpDigits.every((d) => d !== ''));
@@ -123,7 +125,80 @@
         }
     }
 
-    const printFile = (file: any) => {
+    const isWordDocument = (filetype: string): boolean => {
+        const wordTypes = [
+            'application/msword',
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            'doc',
+            'docx',
+        ];
+        return wordTypes.some(
+            (type) =>
+                filetype?.toLowerCase().includes(type) ||
+                type.includes(filetype?.toLowerCase()),
+        );
+    };
+
+    const printWordDocument = async (file: any) => {
+        isPrinting = file.filename;
+        try {
+            // Fetch the Word document as ArrayBuffer
+            const response = await fetch(file.filepath);
+            const arrayBuffer = await response.arrayBuffer();
+
+            // Convert DOCX to HTML using mammoth
+            const result = await mammoth.convertToHtml({ arrayBuffer });
+            const html = result.value;
+
+            // Create a print-friendly HTML document
+            const printContent = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <meta charset="utf-8">
+                    <title>${file.filename}</title>
+                    <style>
+                        @media print {
+                            body { margin: 0; padding: 20px; }
+                        }
+                        body {
+                            font-family: 'Times New Roman', Times, serif;
+                            font-size: 12pt;
+                            line-height: 1.5;
+                            max-width: 800px;
+                            margin: 0 auto;
+                            padding: 20px;
+                        }
+                        img { max-width: 100%; height: auto; }
+                        table { border-collapse: collapse; width: 100%; }
+                        td, th { border: 1px solid #ddd; padding: 8px; }
+                    </style>
+                </head>
+                <body>${html}</body>
+                </html>
+            `;
+
+            // Open print window with the HTML content
+            const printWindow = window.open('', '_blank');
+            if (printWindow) {
+                printWindow.document.write(printContent);
+                printWindow.document.close();
+                printWindow.onload = () => {
+                    printWindow.focus();
+                    printWindow.print();
+                    printWindow.onafterprint = () => printWindow.close();
+                };
+            }
+        } catch (err) {
+            console.error('Error converting Word document:', err);
+            triggerToast('Failed to convert Word document for printing', 'error');
+        } finally {
+            isPrinting = null;
+        }
+    };
+
+    const printPdfOrImage = (file: any) => {
+        isPrinting = file.filename;
         const iframe = document.createElement('iframe');
         iframe.style.position = 'fixed';
         iframe.style.right = '0';
@@ -148,10 +223,19 @@
 
             setTimeout(() => {
                 document.body.removeChild(iframe);
+                isPrinting = null;
             }, 1000);
         };
 
         document.body.appendChild(iframe);
+    };
+
+    const printFile = (file: any) => {
+        if (isWordDocument(file.filetype)) {
+            printWordDocument(file);
+        } else {
+            printPdfOrImage(file);
+        }
     };
 </script>
 
@@ -258,13 +342,20 @@
                                     {file.filename}
                                 </span>
                             </div>
-                            <a
-                                href={"javascript:void(0)"}
-                                class="ml-auto text-sm text-blue-600 hover:underline"
+                            <button
+                                type="button"
+                                class="ml-auto flex items-center gap-1 text-sm text-blue-600 hover:underline disabled:opacity-50"
                                 onclick={() => printFile(file)}
+                                disabled={isPrinting !== null}
                             >
-                                Print
-                            </a>
+                                {#if isPrinting === file.filename}
+                                    <Loader2 class="h-4 w-4 animate-spin" />
+                                    Preparing...
+                                {:else}
+                                    <Printer class="h-4 w-4" />
+                                    Print
+                                {/if}
+                            </button>
                         </li>
                     {/each}
                 </ul>
