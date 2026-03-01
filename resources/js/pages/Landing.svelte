@@ -207,16 +207,11 @@
     >
         <div class="navbar-start">
             <a href="/" class="flex items-center gap-3 text-xl font-bold">
-                <div
-                    class="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-indigo-600 shadow-lg shadow-violet-500/30"
-                >
-                    <Printer class="h-5 w-5 text-white" />
-                </div>
-                <span
-                    class="bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent"
-                >
-                    PrintSecure
-                </span>
+                <img
+                    src={$page.props.app_logo}
+                    alt="PrintSecure Logo"
+                    class="w-auto h-8"
+                />
             </a>
         </div>
         <div class="navbar-center hidden lg:flex">
@@ -572,7 +567,7 @@
                         >Print <span
                             class="relative inline-block bg-gradient-to-r from-violet-600 via-purple-500 to-pink-500 bg-clip-text text-transparent"
                         >
-                            Securely
+                            Secure
                             <svg
                                 class="absolute -bottom-2 left-0 w-full"
                                 viewBox="0 0 300 12"
@@ -848,9 +843,9 @@
                 </div>
 
                 <div class="relative text-center">
-                    <h2
-                        class="mb-6 text-4xl font-bold text-white lg:text-5xl"
-                    >Partner With Us</h2>
+                    <h2 class="mb-6 text-4xl font-bold text-white lg:text-5xl">
+                        Partner With Us
+                    </h2>
                     <p class="mx-auto mb-10 max-w-xl text-lg text-white/80">
                         Join our growing network of print shops and offer your
                         customers a seamless, secure printing experience. Zero
@@ -879,15 +874,11 @@
                         href="/"
                         class="mb-6 flex items-center gap-3 text-xl font-bold"
                     >
-                        <div
-                            class="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-indigo-600 shadow-lg shadow-violet-500/30"
-                        >
-                            <Printer class="h-5 w-5 text-white" />
-                        </div>
-                        <span
-                            class="bg-gradient-to-r from-violet-600 to-indigo-600 bg-clip-text text-transparent"
-                            >PrintSecure</span
-                        >
+                        <img
+                            src={$page.props.app_logo}
+                            alt="PrintSecure Logo"
+                            class="w-auto h-8"
+                        />
                     </a>
                     <p class="max-w-sm text-slate-600">
                         Printing made simple. Upload, Pay, and Collect - no
